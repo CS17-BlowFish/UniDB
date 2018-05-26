@@ -20,7 +20,8 @@ To team members: please read all parts of the Wiki before working on our project
 ## TODO List
 - [ ] General top-level design for the program
 - [ ] Instruction for some C++ STL libraries
-- [ ] Instruction for Git and Github:  Collaborating
-- [x] Instruction for Git and Github:  Installing
+- [ ] Instruction for Git and Github: Collaborating
+- [x] Instruction for cmd/terminal
+- [x] Instruction for Git and Github: Installing
 - [x] Instruction for Code::Blocks IDE
 - [x] Instruction for Coding Style
