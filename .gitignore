@@ -1,0 +1,11 @@
+# Code::Blocks folders/files
+/uni-db/bin
+/uni-db/obj
+
+*.cbp
+*.depend
+*.layout
+
+
+# main.cpp
+main.cpp
