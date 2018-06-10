@@ -1,10 +1,10 @@
-course_id,course_code,course_name,faculty_id,semester_id,registered,slots
-000001,CC01,Mo Hinh Hoa,S1951,172,1,50
-000002,CC01,Mo Hinh Hoa,S1952,172,0,30
-000003,CC02,He Thong Nhung,S1952,172,1,50
-000004,CC03,Lap Trinh Web,S1953,172,1,50
-000005,CC04,He Thong Thong Minh,S1954,172,1,50
-000006,CC05,He quan tri CSDL,S1955,172,1,50
-000007,CC06,He dieu hanh,S1956,172,1,50
-000008,CC07,Toan roi rac 2,S1957,172,1,50
-000009,CC08,LT Android,S1958,172,1,50
+course_id,course_code,course_name,faculty_id,semester_id,registered,slots
+000001,CC01,Mo Hinh Hoa,S0951,172,1,50
+000002,CC01,Mo Hinh Hoa,S0952,172,0,30
+000003,CC02,He Thong Nhung,S0952,172,1,50
+000004,CC03,Lap Trinh Web,S0953,172,1,50
+000005,CC04,He Thong Thong Minh,S0954,172,1,50
+000006,CC05,He quan tri CSDL,S0955,172,1,50
+000007,CC06,He dieu hanh,S0956,172,1,50
+000008,CC07,Toan roi rac 2,S0957,172,1,50
+000009,CC08,LT Android,S0958,172,1,50
