@@ -25,7 +25,7 @@ in the `uni-db/data` folder)
 ## TODO List
 - [ ] Code `.cpp` files
 - [ ] Code `.h` files
-- [ ] Instruction for Git and Github: Collaborating
+- [x] Instruction for Git and Github: Collaborating
 - [x] General top-level design for the program
 - [x] Instruction for database
 - [x] Redesign the database & regenerate data files
