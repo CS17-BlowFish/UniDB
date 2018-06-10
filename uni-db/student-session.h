@@ -1,5 +1,5 @@
-#ifndef STUDENT_H
-#define STUDENT_H
+#ifndef STUDENT_SESSION_H
+#define STUDENT_SESSION_H
 
 
 #include <string>
@@ -13,7 +13,7 @@ class Student {
         void MainHelper();
 
         void CourseRegisterActivity();
-        void CourseUnregisterActivity();
+        void CourseDeregisterActivity();
         void ViewProfileActivity();
         void ChangePasswordActivity();
 
@@ -25,4 +25,4 @@ class Student {
 };
 
 
-#endif // STUDENT_H
+#endif // STUDENT_SESSION_H

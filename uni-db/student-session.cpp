@@ -1,32 +1,32 @@
-#include "student.h"
+#include "student-session.h"
 
 
 /* ==================== PRIVATE METHODS ==================== */
 
 
 /**
- *  @method HomeActivity
+ *  @method HomeScreen
  *  @return {void}
  *
  *  Run "Home" activity
 **/
-void Student::HomeActivity() {
+void StudentSession::HomeScreen() {
 
 }
 
 
 /**
- *  @method MainHelper
+ *  @method HomeHelper
  *  @return {void}
  *
- *  Show the student's main helper.
+ *  Show the student's home helper.
  *  Activities to choose:
  *  1. Register for a course
  *  2. Unregister a course
  *  3. View profile
  *  4. Change password
 **/
-void Student::MainHelper() {
+void StudentSession::HomeHelper() {
 
 }
 
@@ -37,18 +37,18 @@ void Student::MainHelper() {
  *
  *  Run "Register for a course" activity
 **/
-void Student::CourseRegisterActivity() {
+void StudentSession::CourseRegisterActivity() {
 
 }
 
 
 /**
- *  @method CourseUnregisterActivity
+ *  @method CourseDeregisterActivity
  *  @return {void}
  *
  *  Run "Unregister for a course" activity
 **/
-void Student::CourseUnregisterActivity() {
+void StudentSession::CourseDeregisterActivity() {
 
 }
 
@@ -59,7 +59,7 @@ void Student::CourseUnregisterActivity() {
  *
  *  Run "View profile" activity
 **/
-void Student::ViewProfileActivity() {
+void StudentSession::ViewProfileActivity() {
 
 }
 
@@ -70,7 +70,7 @@ void Student::ViewProfileActivity() {
  *
  *  Run "Change password" activity
 **/
-void Student::ChangePasswordActivity() {
+void StudentSession::ChangePasswordActivity() {
 
 }
 
@@ -78,18 +78,18 @@ void Student::ChangePasswordActivity() {
 /* ==================== PUBLIC METHODS  ==================== */
 
 
-Student::Student() {}
+StudentSession::StudentSession() {}
 
 
 /**
- *  @method Session
+ *  @method Run
  *  @return {void}
  *
  *  Run a student session
 **/
-void Student::Session() {
+void StudentSession::Run() {
 
 }
 
 
-Student::~Student() {}
+StudentSession::~StudentSession() {}

@@ -1,32 +1,32 @@
-#include "faculty.h"
+#include "faculty-session.h"
 
 
 /* ==================== PRIVATE METHODS ==================== */
 
 
 /**
- *  @method HomeActivity
+ *  @method HomeScreen
  *  @return {void}
  *
  *  Run "Home" activity
 **/
-void Faculty::HomeActivity() {
+void FacultySession::HomeScreen() {
 
 }
 
 
 /**
- *  @method MainHelper
+ *  @method HomeHelper
  *  @return {void}
  *
- *  Show the faculty's main helper.
+ *  Show the faculty's home helper.
  *  Activities to choose:
  *  1. Open a course
  *  2. Summarize scores of a course
  *  3. Modify scores of a course
  *  4. Change password
 **/
-void Faculty::MainHelper() {
+void FacultySession::HomeHelper() {
 
 }
 
@@ -37,7 +37,7 @@ void Faculty::MainHelper() {
  *
  *  Run "Open a course" activity
 **/
-void Faculty::OpenCourseActivity() {
+void FacultySession::OpenCourseActivity() {
 
 }
 
@@ -48,7 +48,7 @@ void Faculty::OpenCourseActivity() {
  *
  *  Run "Summarize scores of a course" activity
 **/
-void Faculty::SummarizeScoreActivity() {
+void FacultySession::SummarizeScoreActivity() {
 
 }
 
@@ -59,7 +59,7 @@ void Faculty::SummarizeScoreActivity() {
  *
  *  Run "Modify scores of a course" activity
 **/
-void Faculty::ModifyScoreActivity() {
+void FacultySession::ModifyScoreActivity() {
 
 }
 
@@ -70,7 +70,7 @@ void Faculty::ModifyScoreActivity() {
  *
  *  Run "Change password" activity
 **/
-void Faculty::ChangePasswordActivity() {
+void FacultySession::ChangePasswordActivity() {
 
 }
 
@@ -78,7 +78,7 @@ void Faculty::ChangePasswordActivity() {
 /* ==================== PUBLIC METHODS  ==================== */
 
 
-Faculty::Faculty() {}
+FacultySession::FacultySession() {}
 
 
 /**
@@ -87,9 +87,9 @@ Faculty::Faculty() {}
  *
  *  Run a faculty session
 **/
-void Faculty::Session() {
+void FacultySession::Session() {
 
 }
 
 
-Faculty::~Faculty() {}
+FacultySession::~FacultySession() {}

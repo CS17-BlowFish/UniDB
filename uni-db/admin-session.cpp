@@ -1,31 +1,31 @@
-#include "admin.h"
-
+#include "admin-session.h"
+#include <string>
 
 /* ==================== PRIVATE METHODS ==================== */
 
 
 /**
- *  @method HomeActivity
+ *  @method HomeScreen
  *  @return {void}
  *
- *  Run "Home" activity
+ *  The home screen
 **/
-void Admin::HomeActivity() {
-
+void AdminSession::HomeScreen() {
+    
 }
 
 
 /**
- *  @method MainHelper
+ *  @method HomeHelper
  *  @return {void}
  *
- *  Show the administrator's main helper.
+ *  Show the administrator's .
  *  Activities to choose:
  *  1. Add user
  *  2. Delete user
  *  3. Change password
 **/
-void Admin::MainHelper() {
+void AdminSession::HomeHelper() {
 
 }
 
@@ -36,7 +36,7 @@ void Admin::MainHelper() {
  *
  *  Run "Add user" activity
 **/
-void Admin::AddUserActivity() {
+void AdminSession::AddUserActivity() {
 
 }
 
@@ -47,7 +47,7 @@ void Admin::AddUserActivity() {
  *
  *  Run "Delete user" activity
 **/
-void Admin::DeleteUserActivity() {
+void AdminSession::DeleteUserActivity() {
 
 }
 
@@ -58,7 +58,7 @@ void Admin::DeleteUserActivity() {
  *
  *  Run "Change password" activity
 **/
-void Admin::ChangePasswordActivity() {
+void AdminSession::ChangePasswordActivity() {
 
 }
 
@@ -66,18 +66,20 @@ void Admin::ChangePasswordActivity() {
 /* ==================== PUBLIC METHODS  ==================== */
 
 
-Admin::Admin() {}
+AdminSession::AdminSession(std::string _admin_id) {
+    admin_id = _admin_id;
+}
 
 
 /**
- *  @method Session
+ *  @method Run
  *  @return {void}
  *
  *  Run an administrator session
 **/
-void Admin::Session() {
+void AdminSession::Run() {
 
 }
 
 
-Admin::~Admin() {}
+AdminSession::~AdminSession() {}
