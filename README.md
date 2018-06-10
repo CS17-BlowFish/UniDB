@@ -9,7 +9,8 @@ To team members: please read all parts of the Wiki before working on our project
 * Installing Git - last update: 14-05-18 - [link](https://github.com/CS17-BlowFish/UniDB/wiki/Installing-Git)
 * Quick guide to terminal/cmd - last update: 26-05-18 - [link](https://github.com/CS17-BlowFish/UniDB/wiki/Quick-Guide-to-Windows-cmd-&-UNIX-Terminal)
 * C++ STL - last update: 01-06-18 - [link](https://github.com/CS17-BlowFish/UniDB/wiki/Cpp-Standard-Template-Library)
-* Data files (in progress)
+* Database Structure - last update: 10-06-18 [link](https://github.com/CS17-BlowFish/UniDB/wiki/Database-Structure-&-Commands)
+* Control flow - last update: 10-06-18 - [link](https://github.com/CS17-BlowFish/UniDB/wiki/Control-Flow)
 
 
 ## Sample Executable & Data
@@ -22,8 +23,11 @@ in the `uni-db/data` folder)
 
 
 ## TODO List
-- [ ] General top-level design for the program
+- [ ] Code `.cpp` files
+- [ ] Code `.h` files
 - [ ] Instruction for Git and Github: Collaborating
+- [x] General top-level design for the program
+- [x] Instruction for database
 - [x] Redesign the database & regenerate data files
 - [x] Instruction for some C++ STL libraries
 - [x] Instruction for cmd/terminal
