@@ -1,4 +1,5 @@
 #include "student-session.h"
+#include "io.h"
 
 
 /* ==================== PRIVATE METHODS ==================== */
@@ -12,17 +13,39 @@
 **/
 void StudentSession::HomeScreen()
 {
-     std::cout << "1. Change password [p]        \n"
-               << "2. View my Coureses [c]       \n"
-               << "3. Search Course [scn]        \n"
-               << "4. Join Course [j]            \n"
-               << "5. Logout [l]                 \n"
-               << "6. Exit [q]                   \n"
-               << "7. Help? [h]                  \n" << std::endl;
+    IO c;
+    std::string choice = c.NextToken();
 
-    std::cout << "Your choice : ";
+    std::cout << "1.Course Register\n";
+    std::cout << "2.Course Deregister \n";
+    std::cout << "3.Change Password\n";
+    std::cout << "4.Help??\n";
+
+    do
+    {
+        if (choice == "1" || choice == "af" || choice == "at")
+        {
+            CourseRegisterActivity();
+            break;
+        }
+        else if (choice == "2" || choice == "df" || choice == "dt" || choice == "ds")
+        {
+            CourseDeregisterActivity();
+            break;
+        }
+        else if (choice == "3" || choice == "p" || choice == "passwd")
+        {
+            ChangePasswordActivity();
+            break;
+        }
+        else if (choice == "4")
+        {
+            HomeHelper();
+            break;
+        }
+    }
+    while(1);
 }
-
 
 /**
  *  @method HomeHelper
@@ -109,9 +132,9 @@ StudentSession::StudentSession() {}
  *
  *  Run a student session
 **/
-void StudentSession::Run() {
+//void StudentSession::Run() {
 
-}
+//}
 
 
 StudentSession::~StudentSession() {}

@@ -1,7 +1,4 @@
 #include "io.h"
-#include <iostream>
-#include <sstream>
-#include <string>
 
 
 /*
@@ -11,14 +8,21 @@
 */
 
 
-IO::IO();
+//IO::IO(){};
 
 
 /**
  *  Get the whole line (with whitespaces)
 **/
+
+
+
 std::string IO::ReadLine() {
-    
+
+    std::string s;
+    std::getline(std::cin, s);
+
+    return s;
 }
 
 
@@ -29,8 +33,26 @@ std::string IO::ReadLine() {
  *  Get a single token (string) without whitespaces
  *  Hint: use stringstream
 **/
+
 std::string IO::NextToken() {
 
+    std::string s;
+    std::string temp;
+    std::stringstream ss;
+
+    s = ReadLine();
+
+    ss << s;
+    s = "";
+
+    while (!ss.eof())
+    {
+        ss >> temp;
+
+        s = s + temp;
+    }
+
+    return s;
 }
 
 
@@ -43,6 +65,14 @@ std::string IO::NextToken() {
 **/
 int IO::NextInt() {
 
+    int num;
+    std::string s;
+
+    s = NextToken();
+
+    num = stoi(s);
+
+    return num;
 }
 
 
@@ -54,5 +84,13 @@ int IO::NextInt() {
  *  Hint: use the NextToken() function and cast std::string to double
 **/
 double IO::NextDouble() {
+    double num;
 
+    std::string s;
+
+    s = NextToken();
+
+    num = stof(s);
+
+    return num;
 }

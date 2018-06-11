@@ -1,5 +1,5 @@
 #include "admin-session.h"
-#include <string>
+#include "io.h"
 
 /* ==================== PRIVATE METHODS ==================== */
 
@@ -12,15 +12,39 @@
 **/
 void AdminSession::HomeScreen()
 {
-    std::cout << "1. Show User              \n"
-              << "2. Search User            \n"
-              << "3. Add User               \n"
-              << "4. Delete User [dt] [ds]  \n"
-              << "5. Logout [l]             \n"
-              << "6. Exit [q]               \n"
-              << "7. Help?? [h]             \n" << std::endl;
+    IO c;
 
-    std::cout << "Your choice : ";
+    std::string choice = c.NextToken();
+
+    std::cout << "1.Add User\n";
+    std::cout << "2.Delete User\n";
+    std::cout << "3.Change password \n";
+    std::cout << "4.Help??\n";
+
+    do
+    {
+        if (choice == "1" || choice == "af" || choice == "at")
+        {
+            AddUserActivity();
+            break;
+        }
+        else if (choice == "2" || choice == "df" || choice == "dt" || choice == "ds")
+        {
+            DeleteUserActivity();
+            break;
+        }
+        else if (choice == "3" || choice == "p" || choice == "passwd")
+        {
+            ChangePasswordActivity();
+            break;
+        }
+        else if (choice == "4")
+        {
+            HomeHelper();
+            break;
+        }
+    }
+    while(1);
 }
 
 

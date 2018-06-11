@@ -1,5 +1,5 @@
 #include "faculty-session.h"
-
+#include "io.h"
 
 /* ==================== PRIVATE METHODS ==================== */
 
@@ -10,21 +10,47 @@
  *
  *  Run "Home" Screen
 **/
-void TeacherSession::HomeScreen()
+void FacultySession::HomeScreen()
 {
-    std::cout << "1. Change password [p]            \n"
-              << "2. View my courses [c]            \n"
-              << "3. Search courses [scn]           \n"
-              << "4. Open course [o] [a]            \n"
-              << "5. Summarize Score [s] [sum]      \n"
-              << "6. Revise Score [r]               \n"
-              << "7. Logout [l]                     \n"
-              << "8. Exit [q]                       \n"
-              << "9. Help?? [h]                     \n" << std::endl;
+    IO c;
+    std::string choice = c.NextToken();
 
-    std::cout << "Your choice : ";
+    std::cout << "1.Open Course \n";
+    std::cout << "2.Summarize Score\n";
+    std::cout << "3.Modify Score \n";
+    std::cout << "4.Change Password\n";
+    std::cout << "5.Help??\n";
+
+    do
+    {
+        if (choice == "1" || choice == "o" || choice == "oc")
+        {
+            OpenCourseActivity();
+            break;
+        }
+        else if (choice == "2" || choice == "s" || choice == "sum")
+        {
+            SummarizeScoreActivity();
+            break;
+        }
+        else if (choice == "3" || choice == "r" || choice == "revise")
+        {
+            ModifyScoreActivity();
+            break;
+        }
+        else if (choice == "4" || choice == "p" || choice == "passwd")
+        {
+            ChangePasswordActivity();
+            break;
+        }
+        else if (choice == "5")
+        {
+            HomeHelper();
+            break;
+        }
+    }
+    while(1);
 }
-
 
 /**
  *  @method HomeHelper
@@ -116,9 +142,5 @@ FacultySession::FacultySession() {}
  *
  *  Run a faculty session
 **/
-void FacultySession::Session() {
-
-}
-
 
 FacultySession::~FacultySession() {}

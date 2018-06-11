@@ -5,12 +5,12 @@
 #include <string>
 
 
-class Student {
+class StudentSession {
     private:
         std::string id;
 
-        void HomeActivity();
-        void MainHelper();
+        void HomeScreen();
+        void HomeHelper();
 
         void CourseRegisterActivity();
         void CourseDeregisterActivity();
@@ -19,9 +19,9 @@ class Student {
 
 
     public:
-        Student();
+        StudentSession();
         void Session();
-        ~Student();
+        ~StudentSession();
 };
 
 
