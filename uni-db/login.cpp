@@ -1,6 +1,7 @@
 #include "db.h"
 #include "io.h"
 
+#include <stdio.h>
 #include <iostream>
 #include <string>
 
@@ -26,10 +27,17 @@ bool LoginScreen(std::string &user_id, std::string &password, std::string &user_
     // user_id, password, user_type (this is defined after the "SELECT" keyword)
 
     if (query_result.size() == 0) {
-        return false; // login unsuccesfully
+        std::cout << "\n Login failed! Please try again...\n";
+        std::cout << "Press any key to continue";
+        getchar();
+        return false; // login failed
     }
 
     user_type = query_result[0][2];
+
+    std::cout << "\n Logged in succesfully!\n";
+    std::cout << "Press any key to continue";
+    getchar();
 
     return true;
 }
