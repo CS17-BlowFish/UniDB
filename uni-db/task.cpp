@@ -1,15 +1,15 @@
 #include "task.h"
 
-// this may differ
+// this may differ 
 
-std::string user_path = "C:/Users/Someone/Desktop/project/uni-db/data/user.csv";
-std::string score_path = "C:/Users/Someone/Desktop/project/uni-db/data/score.csv";
-std::string student_path = "C:/Users/Someone/Desktop/project/uni-db/data/student.csv";
-std::string faculty_path = "C:/Users/Someone/Desktop/project/uni-db/data/faculty.csv";
-std::string course_path = "C:/Users/Someone/Desktop/project/uni-db/data/course.csv";
+std::string user_path = "data/user.csv";
+std::string score_path = "data/score.csv";
+std::string student_path = "data/student.csv";
+std::string faculty_path = "data/faculty.csv";
+std::string course_path = "data/course.csv";
 
-std::string test_path = "C:/Users/Someone/Desktop/project/uni-db/data/temp.txt";
-std::string log_path = "C:/Users/Someone/Desktop/project/uni-db/data/log.txt";
+std::string test_path = "/temp.txt";
+std::string log_path = "/log.txt";
 
 void Task::readFile(std::string _path, Data st[]) {
 	char c;
