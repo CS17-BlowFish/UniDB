@@ -2,6 +2,7 @@
 #define ADMIN_SESSION_H
 
 
+
 class AdminSession {
     private:
         std::string admin_id;
