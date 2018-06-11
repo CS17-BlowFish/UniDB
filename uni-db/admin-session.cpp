@@ -1,5 +1,7 @@
 #include "admin-session.h"
+#include "task.h"
 #include <string>
+
 
 /* ==================== PRIVATE METHODS ==================== */
 
