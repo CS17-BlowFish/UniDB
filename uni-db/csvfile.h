@@ -22,4 +22,4 @@ class CsvFile {
 };
 
 
-#endif CSVFILE_H
+#endif // CSVFILE_H
