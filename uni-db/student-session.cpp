@@ -10,8 +10,17 @@
  *
  *  Run "Home" activity
 **/
-void StudentSession::HomeScreen() {
+void StudentSession::HomeScreen()
+{
+     std::cout << "1. Change password [p]        \n"
+               << "2. View my Coureses [c]       \n"
+               << "3. Search Course [scn]        \n"
+               << "4. Join Course [j]            \n"
+               << "5. Logout [l]                 \n"
+               << "6. Exit [q]                   \n"
+               << "7. Help? [h]                  \n" << std::endl;
 
+    std::cout << "Your choice : ";
 }
 
 
@@ -26,8 +35,21 @@ void StudentSession::HomeScreen() {
  *  3. View profile
  *  4. Change password
 **/
-void StudentSession::HomeHelper() {
+void StudentSession::HomeHelper()
+{
+    std::cout << "*Change Password            [p]    [passwd]  \n\n"
+              << "*View all course            [c]             \n\n"
+              << "|___View all student        [v]             \n"
+              << "    in course                               \n\n"
+              << "*Search course              [s]    [sc]      \n\n"
+              << "|___Search course by name   [sfn]  [stn]     \n"
+              << "|___Search course           [sct]           \n"
+              << "    by faculty              [scf]  [sct]     \n\n"
+              << "*Join course                [j]    [jc]      \n\n"
+              << "*Summarize score            [s]    [sum]     \n\n";
 
+    std::cout << "Press enter to continue ......";
+    getchar();
 }
 
 

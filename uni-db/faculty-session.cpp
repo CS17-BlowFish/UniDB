@@ -10,8 +10,19 @@
  *
  *  Run "Home" Screen
 **/
-void FacultySession::HomeScreen() {
+void TeacherSession::HomeScreen()
+{
+    std::cout << "1. Change password [p]            \n"
+              << "2. View my courses [c]            \n"
+              << "3. Search courses [scn]           \n"
+              << "4. Open course [o] [a]            \n"
+              << "5. Summarize Score [s] [sum]      \n"
+              << "6. Revise Score [r]               \n"
+              << "7. Logout [l]                     \n"
+              << "8. Exit [q]                       \n"
+              << "9. Help?? [h]                     \n" << std::endl;
 
+    std::cout << "Your choice : ";
 }
 
 
@@ -26,10 +37,28 @@ void FacultySession::HomeScreen() {
  *  3. Modify scores of a course
  *  4. Change password
 **/
-void FacultySession::HomeHelper() {
+void FacultySession::HomeHelper()
+{
+    std::cout << "*Change\n\n"
+              << "|___ Password             [p]    [passwd]\n\n"
+              << "|___ Address              [ca]            \n\n"
+              << "|___ Phone                [cp]            \n\n"
+              << "*View all course          [c]             \n\n"
+              << "|__View all student       [v]              \n"
+              << "   in course                               \n"
+              << "*Search course            [s]     [sc]      \n"
+              << "|__Search course by name  [scn]           \n"
+              << "|__Search course          [scn]            \n"
+              << "   by falculty            [scf]   [sct]    \n\n"
+              << "*Open course              [o]     [oc]      \n\n"
+              << "*Summarize score          [s]     [sum]     \n\n"
+              << "*Revise score             [r]     [revise]   \n\n";
+
+    std::cout << "Press enter to continue ......";
+
+    getchar();
 
 }
-
 
 /**
  *  @method OpenCourseActivity
