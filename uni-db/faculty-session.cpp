@@ -60,7 +60,9 @@ void FacultySession::SummarizeScoreActivity() {
  *  Run "Modify scores of a course" activity
 **/
 void FacultySession::ModifyScoreActivity() {
-
+    IN course SELECT * WHERE (faculty_id == <faculty id>)
+    IN score SELECT * WHERE (course_id == <course id>)
+    IN score SET (score = ) WHERE (course_id == <course id>) AND (student_id = <student id>)
 }
 
 
