@@ -1,6 +1,11 @@
 #include "faculty-session.h"
 #include "io.h"
 
+#include <stdio.h>
+#include <iostream>
+#include <string>
+
+
 /* ==================== PRIVATE METHODS ==================== */
 
 
@@ -10,13 +15,10 @@
  *
  *  Run "Home" Screen
 **/
-void FacultySession::HomeScreen()
-{
+void FacultySession::HomeScreen() {
     IO io;
 
-    do
-    {
-
+    do {
         std::string choice = io.NextToken();
 
         std::cout << "1.Open Course \n";
@@ -25,29 +27,24 @@ void FacultySession::HomeScreen()
         std::cout << "4.Change Password\n";
         std::cout << "5.Help??\n";
 
-        if (choice == "1" || choice == "o" || choice == "oc")
-        {
+        if (choice == "1" || choice == "o" || choice == "oc") {
             OpenCourseActivity();
         }
-        else if (choice == "2" || choice == "s" || choice == "sum")
-        {
+        else if (choice == "2" || choice == "s" || choice == "sum") {
             SummarizeScoreActivity();
         }
-        else if (choice == "3" || choice == "r" || choice == "revise")
-        {
+        else if (choice == "3" || choice == "r" || choice == "revise") {
             ModifyScoreActivity();
         }
-        else if (choice == "4" || choice == "p" || choice == "passwd")
-        {
+        else if (choice == "4" || choice == "p" || choice == "passwd") {
             ChangePasswordActivity();
         }
-        else if (choice == "5")
-        {
+        else if (choice == "5") {
             HomeHelper();
         }
-    }
-    while(1);
+    } while(1);
 }
+
 
 /**
  *  @method HomeHelper
@@ -60,8 +57,7 @@ void FacultySession::HomeScreen()
  *  3. Modify scores of a course
  *  4. Change password
 **/
-void FacultySession::HomeHelper()
-{
+void FacultySession::HomeHelper() {
     std::cout << "*Change\n\n"
               << "|___ Password             [p]    [passwd]\n\n"
               << "|___ Address              [ca]            \n\n"
@@ -78,10 +74,9 @@ void FacultySession::HomeHelper()
               << "*Revise score             [r]     [revise]   \n\n";
 
     std::cout << "Press enter to continue ......";
-
     getchar();
-
 }
+
 
 /**
  *  @method OpenCourseActivity
@@ -123,11 +118,7 @@ void FacultySession::ModifyScoreActivity() {
  *  Run "Change password" activity
 **/
 void FacultySession::ChangePasswordActivity() {
-	std::string password;
-	std::cout << "New password: ";
-	std::cin >> password;
-	Task _task;
-	_task.replace_data(0, id, 1, password);
+
 }
 
 
@@ -138,10 +129,12 @@ FacultySession::FacultySession() {}
 
 
 /**
- *  @method Session
+ *  @method Run
  *  @return {void}
  *
  *  Run a faculty session
 **/
+void FacultySession::Run() {}
+
 
 FacultySession::~FacultySession() {}

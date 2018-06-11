@@ -1,6 +1,7 @@
 #include "io.h"
 #include "student-session.h"
 
+#include <iostream>
 
 /* ==================== PRIVATE METHODS ==================== */
 
@@ -11,12 +12,10 @@
  *
  *  Run "Home" activity
 **/
-void StudentSession::HomeScreen()
-{
+void StudentSession::HomeScreen() {
     IO io;
 
-    do
-    {
+    do {
 
         std::string choice = io.NextToken();
 
@@ -25,20 +24,16 @@ void StudentSession::HomeScreen()
         std::cout << "3.Change Password\n";
         std::cout << "4.Help??\n";
 
-        if (choice == "1" || choice == "af" || choice == "at")
-        {
+        if (choice == "1" || choice == "af" || choice == "at") {
             CourseRegisterActivity();
         }
-        else if (choice == "2" || choice == "df" || choice == "dt" || choice == "ds")
-        {
+        else if (choice == "2" || choice == "df" || choice == "dt" || choice == "ds") {
             CourseDeregisterActivity();
         }
-        else if (choice == "3" || choice == "p" || choice == "passwd")
-        {
+        else if (choice == "3" || choice == "p" || choice == "passwd") {
             ChangePasswordActivity();
         }
-        else if (choice == "4")
-        {
+        else if (choice == "4") {
             HomeHelper();
         }
     }
@@ -56,8 +51,7 @@ void StudentSession::HomeScreen()
  *  3. View profile
  *  4. Change password
 **/
-void StudentSession::HomeHelper()
-{
+void StudentSession::HomeHelper() {
     std::cout << "*Change Password            [p]    [passwd]  \n\n"
               << "*View all course            [c]             \n\n"
               << "|___View all student        [v]             \n"
@@ -114,11 +108,7 @@ void StudentSession::ViewProfileActivity() {
  *  Run "Change password" activity
 **/
 void StudentSession::ChangePasswordActivity() {
-	std::string password;
-	std::cout << "New password: ";
-	std::cin >> password;
-	Task _task;
-	_task.replace_data(0, id, 1, password);
+
 }
 
 
@@ -134,9 +124,9 @@ StudentSession::StudentSession() {}
  *
  *  Run a student session
 **/
-//void StudentSession::Run() {
+void StudentSession::Run() {
 
-//}
+}
 
 
 StudentSession::~StudentSession() {}

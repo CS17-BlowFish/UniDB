@@ -14,6 +14,6 @@ std::vector<std::string> CsvFile::ReadLines() {
 }
 
 
-std::vector<std::string> CsvFile::SplitColumns() {
+std::vector<std::string> CsvFile::SplitColumns(std::string line) {
 
 }

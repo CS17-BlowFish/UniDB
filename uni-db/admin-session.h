@@ -21,7 +21,6 @@ class AdminSession {
         AdminSession(std::string _admin_id);
         void Run();
         ~AdminSession();
-
 };
 
 

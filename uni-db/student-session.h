@@ -20,10 +20,7 @@ class StudentSession {
 
     public:
         StudentSession();
-        void Session();
-
         void Run();
-
         ~StudentSession();
 };
 

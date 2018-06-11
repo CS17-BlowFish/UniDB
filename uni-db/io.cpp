@@ -1,28 +1,34 @@
 #include "io.h"
 
-
-/*
-    Note: For input, try to use getline and stringstream for all functions
-    Avoid cin since it will conflict with getline.
-    For output, cout is OK.
-*/
-
-
-//IO::IO(){};
+#include <iostream>
+#include <stdio.h>
+#include <string>
+#include <sstream>
 
 
 /**
- *  Get the whole line (with whitespaces)
+ *  Note: For input, try to use getline and stringstream for all functions
+ *  Avoid cin since it will conflict with getline.
+ *  For output, cout is OK.
 **/
 
+/**
+ *  Constructor
+**/
+IO::IO() {};
 
 
+/**
+ *  @method ReadLine
+ *  @return {std::string}
+ *  
+ *  Get the whole line (with whitespaces)
+**/
 std::string IO::ReadLine() {
+    std::string line;
+    std::getline(std::cin, line);
 
-    std::string s;
-    std::getline(std::cin, s);
-
-    return s;
+    return line;
 }
 
 
@@ -30,29 +36,20 @@ std::string IO::ReadLine() {
  *  @method NextToken
  *  @return {std::string}
  *
- *  Get a single token (string) without whitespaces
+ *  Get a single token (string). Stop when encounter a whitespace.
  *  Hint: use stringstream
 **/
 
 std::string IO::NextToken() {
+    std::string line = ReadLine();
 
-    std::string s;
-    std::string temp;
     std::stringstream ss;
+    ss << line;
 
-    s = ReadLine();
+    std::string token;
+    ss >> token;
 
-    ss << s;
-    s = "";
-
-    while (!ss.eof())
-    {
-        ss >> temp;
-
-        s = s + temp;
-    }
-
-    return s;
+    return token;
 }
 
 
@@ -64,14 +61,8 @@ std::string IO::NextToken() {
  *  Hint: use the NextToken() function and cast std::string to int
 **/
 int IO::NextInt() {
-
-    int num;
-    std::string s;
-
-    s = NextToken();
-
-    num = stoi(s);
-
+    std::string token = NextToken();
+    int num = std::stoi(token);
     return num;
 }
 
@@ -84,13 +75,13 @@ int IO::NextInt() {
  *  Hint: use the NextToken() function and cast std::string to double
 **/
 double IO::NextDouble() {
-    double num;
-
-    std::string s;
-
-    s = NextToken();
-
-    num = stof(s);
-
+    std::string token = NextToken();
+    double num = std::stof(token);
     return num;
 }
+
+
+/**
+ *  Destructor
+**/
+IO::~IO() {}
