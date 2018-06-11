@@ -13,3 +13,9 @@ main.cpp
 
 # Makefile
 Makefile
+
+# shell script
+*.sh
+
+# bat file
+*.bat
