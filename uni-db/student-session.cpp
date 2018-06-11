@@ -22,7 +22,7 @@ void StudentSession::HomeScreen() {
  *  Show the student's home helper.
  *  Activities to choose:
  *  1. Register for a course
- *  2. Unregister a course
+ *  2. Deregister a course
  *  3. View profile
  *  4. Change password
 **/
@@ -46,7 +46,7 @@ void StudentSession::CourseRegisterActivity() {
  *  @method CourseDeregisterActivity
  *  @return {void}
  *
- *  Run "Unregister for a course" activity
+ *  Run "Deregister for a course" activity
 **/
 void StudentSession::CourseDeregisterActivity() {
 

@@ -8,7 +8,7 @@
  *  @method HomeScreen
  *  @return {void}
  *
- *  Run "Home" activity
+ *  Run "Home" Screen
 **/
 void FacultySession::HomeScreen() {
 
