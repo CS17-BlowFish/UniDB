@@ -1,5 +1,7 @@
 #include "admin-session.h"
 #include "io.h"
+#include <string>
+
 
 /* ==================== PRIVATE METHODS ==================== */
 
@@ -14,9 +16,7 @@ void AdminSession::HomeScreen()
 {
     IO io;
 
-    do
-    {
-
+    do {
         std::string choice = io.NextToken();
 
         std::cout << "1.Add User\n";
@@ -40,8 +40,7 @@ void AdminSession::HomeScreen()
         {
             HomeHelper();
         }
-    }
-    while(1);
+    } while(1);
 }
 
 

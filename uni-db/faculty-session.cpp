@@ -123,7 +123,11 @@ void FacultySession::ModifyScoreActivity() {
  *  Run "Change password" activity
 **/
 void FacultySession::ChangePasswordActivity() {
-
+	std::string password;
+	std::cout << "New password: ";
+	std::cin >> password;
+	Task _task;
+	_task.replace_data(0, id, 1, password);
 }
 
 
