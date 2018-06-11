@@ -12,36 +12,33 @@
 **/
 void AdminSession::HomeScreen()
 {
-    IO c;
-
-    std::string choice = c.NextToken();
-
-    std::cout << "1.Add User\n";
-    std::cout << "2.Delete User\n";
-    std::cout << "3.Change password \n";
-    std::cout << "4.Help??\n";
+    IO io;
 
     do
     {
+
+        std::string choice = io.NextToken();
+
+        std::cout << "1.Add User\n";
+        std::cout << "2.Delete User\n";
+        std::cout << "3.Change password \n";
+        std::cout << "4.Help??\n";
+
         if (choice == "1" || choice == "af" || choice == "at")
         {
             AddUserActivity();
-            break;
         }
         else if (choice == "2" || choice == "df" || choice == "dt" || choice == "ds")
         {
             DeleteUserActivity();
-            break;
         }
         else if (choice == "3" || choice == "p" || choice == "passwd")
         {
             ChangePasswordActivity();
-            break;
         }
         else if (choice == "4")
         {
             HomeHelper();
-            break;
         }
     }
     while(1);

@@ -12,41 +12,38 @@
 **/
 void FacultySession::HomeScreen()
 {
-    IO c;
-    std::string choice = c.NextToken();
-
-    std::cout << "1.Open Course \n";
-    std::cout << "2.Summarize Score\n";
-    std::cout << "3.Modify Score \n";
-    std::cout << "4.Change Password\n";
-    std::cout << "5.Help??\n";
+    IO io;
 
     do
     {
+
+        std::string choice = io.NextToken();
+
+        std::cout << "1.Open Course \n";
+        std::cout << "2.Summarize Score\n";
+        std::cout << "3.Modify Score \n";
+        std::cout << "4.Change Password\n";
+        std::cout << "5.Help??\n";
+
         if (choice == "1" || choice == "o" || choice == "oc")
         {
             OpenCourseActivity();
-            break;
         }
         else if (choice == "2" || choice == "s" || choice == "sum")
         {
             SummarizeScoreActivity();
-            break;
         }
         else if (choice == "3" || choice == "r" || choice == "revise")
         {
             ModifyScoreActivity();
-            break;
         }
         else if (choice == "4" || choice == "p" || choice == "passwd")
         {
             ChangePasswordActivity();
-            break;
         }
         else if (choice == "5")
         {
             HomeHelper();
-            break;
         }
     }
     while(1);
