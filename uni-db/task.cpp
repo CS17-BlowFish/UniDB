@@ -2,15 +2,14 @@
 
 // this may differ
 
-std::string user_path = "uni-db/data/user.csv";
-std::string score_path = "uni-db/data/score.csv";
-std::string student_path = "uni-db/data/student.csv";
-std::string faculty_path = "uni-db/data/faculty.csv";
-std::string course_path = "uni-db/data/course.csv";
+std::string user_path = "C:/Users/Someone/Desktop/project/uni-db/data/user.csv";
+std::string score_path = "C:/Users/Someone/Desktop/project/uni-db/data/score.csv";
+std::string student_path = "C:/Users/Someone/Desktop/project/uni-db/data/student.csv";
+std::string faculty_path = "C:/Users/Someone/Desktop/project/uni-db/data/faculty.csv";
+std::string course_path = "C:/Users/Someone/Desktop/project/uni-db/data/course.csv";
 
-std::string test_path = "uni-db/data/temp.txt";
-std::string log_path = "uni-db/data/log.txt";
-
+std::string test_path = "C:/Users/Someone/Desktop/project/uni-db/data/temp.txt";
+std::string log_path = "C:/Users/Someone/Desktop/project/uni-db/data/log.txt";
 
 void Task::readFile(std::string _path, Data st[]) {
 	char c;
@@ -128,6 +127,8 @@ int Task::search_user(std::string _name) {
 	return a;
 }
 
+// The same with search_user, without cout-ing
+
 void Task::add_user() {
 	std::string _id;
 	std::string _pass;
@@ -177,7 +178,7 @@ void Task::remove_user() {
 }
 
 // This was replaced with Task::replace_data.
-/*
+
 void Task::change_password(std::string _id) {
 	std::string _pass;
 	std::cout << "Password: "; std::cin >> _pass;
@@ -231,11 +232,10 @@ void Task::change_password(std::string _id) {
 	post_file.close();
 	pre_file.close();
 }
-*/
 
 // Find the line with that text in condition_column 
 // Replace writing_column with _text data
-void Task::replace_data(int condition_col, int writing_col, std::string _id, std::string _text) {
+void Task::replace_data(int condition_col, std::string _condition_data, int writing_col, std::string _text) {
 
 	std::string line;
 	std::ifstream pre_file(user_path);
@@ -248,40 +248,50 @@ void Task::replace_data(int condition_col, int writing_col, std::string _id, std
 	bool found = 0;
 	while (line_replace <= 2000) {
 		line_replace += 1;
-		if (_text == userdata[line_replace].inner[condition_col]) {
+		if (_condition_data == userdata[line_replace].inner[condition_col]) {
 			found = 1;
 			break;
 		}
 	}
 
 	line_replace += 1;
-	std::cout << std::endl << "This user password will be changed. \n";
-	int num = 1;
-	post_file.open(test_path);
+	std::cout << line_replace;
 
-	// Write new content to a "temp" folder
-	while (getline(pre_file, line)) {
-		if (num != line_replace) {
-			post_file << line;
-			num += 1;
-			post_file << "\n";
-		}
-		else {
-			char c; int a = 0;
-			while (pre_file.get(c)) {
-				if (c != ',' && c != '\n' && a != writing_col) {
-					post_file << c;
-				};
-				if (c == ',') {
-					a += 1;
-					if (a == writing_col) {
-						post_file << "," << _text << ",";
+	if (found) {
+
+		int num = 1;
+		post_file.open(test_path);
+
+		// Write new content to a "temp" folder
+		while (getline(pre_file, line)) {
+			if (num != line_replace - 1) {
+				post_file << line;
+				num += 1;
+				post_file << "\n";
+			}
+			else {
+
+				post_file << line;
+				num += 1;
+				post_file << "\n";
+
+				char c; int a = 0;
+				while (pre_file.get(c)) {
+					if (c != ',' && c != '\n' && a != writing_col) {
+						post_file << c;
+					};
+					if (c == ',') {
+						a += 1;
+						if (a == writing_col) {
+							post_file << "," << _text << ",";
+						}
 					}
-				}
-				else if (c == '\n') {
-					post_file << "\n";
-					num += 1;
-					break;
+					else if (c == '\n') {
+						post_file << "\n";
+						num += 1;
+						break;
+					}
+					std::cout << c;
 				}
 			}
 		}
@@ -298,6 +308,9 @@ void Task::replace_data(int condition_col, int writing_col, std::string _id, std
 	}
 	post_file.close();
 	pre_file.close();
+	//delete userdata;
 }
 
+void task() {
 
+}
