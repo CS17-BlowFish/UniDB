@@ -1,5 +1,5 @@
 #include "faculty-session.h"
-#include "task.h"
+#include "io.h"
 
 /* ==================== PRIVATE METHODS ==================== */
 
@@ -10,10 +10,44 @@
  *
  *  Run "Home" Screen
 **/
-void FacultySession::HomeScreen() {
+void FacultySession::HomeScreen()
+{
+    IO io;
 
+    do
+    {
+
+        std::string choice = io.NextToken();
+
+        std::cout << "1.Open Course \n";
+        std::cout << "2.Summarize Score\n";
+        std::cout << "3.Modify Score \n";
+        std::cout << "4.Change Password\n";
+        std::cout << "5.Help??\n";
+
+        if (choice == "1" || choice == "o" || choice == "oc")
+        {
+            OpenCourseActivity();
+        }
+        else if (choice == "2" || choice == "s" || choice == "sum")
+        {
+            SummarizeScoreActivity();
+        }
+        else if (choice == "3" || choice == "r" || choice == "revise")
+        {
+            ModifyScoreActivity();
+        }
+        else if (choice == "4" || choice == "p" || choice == "passwd")
+        {
+            ChangePasswordActivity();
+        }
+        else if (choice == "5")
+        {
+            HomeHelper();
+        }
+    }
+    while(1);
 }
-
 
 /**
  *  @method HomeHelper
@@ -26,10 +60,28 @@ void FacultySession::HomeScreen() {
  *  3. Modify scores of a course
  *  4. Change password
 **/
-void FacultySession::HomeHelper() {
+void FacultySession::HomeHelper()
+{
+    std::cout << "*Change\n\n"
+              << "|___ Password             [p]    [passwd]\n\n"
+              << "|___ Address              [ca]            \n\n"
+              << "|___ Phone                [cp]            \n\n"
+              << "*View all course          [c]             \n\n"
+              << "|__View all student       [v]              \n"
+              << "   in course                               \n"
+              << "*Search course            [s]     [sc]      \n"
+              << "|__Search course by name  [scn]           \n"
+              << "|__Search course          [scn]            \n"
+              << "   by falculty            [scf]   [sct]    \n\n"
+              << "*Open course              [o]     [oc]      \n\n"
+              << "*Summarize score          [s]     [sum]     \n\n"
+              << "*Revise score             [r]     [revise]   \n\n";
+
+    std::cout << "Press enter to continue ......";
+
+    getchar();
 
 }
-
 
 /**
  *  @method OpenCourseActivity
@@ -91,9 +143,5 @@ FacultySession::FacultySession() {}
  *
  *  Run a faculty session
 **/
-void FacultySession::Session() {
-
-}
-
 
 FacultySession::~FacultySession() {}

@@ -1,6 +1,9 @@
 #ifndef ADMIN_SESSION_H
 #define ADMIN_SESSION_H
 
+#include <string>
+#include <iostream>
+#include <stdio.h>
 
 
 class AdminSession {
@@ -18,6 +21,7 @@ class AdminSession {
         AdminSession(std::string _admin_id);
         void Run();
         ~AdminSession();
+
 };
 
 

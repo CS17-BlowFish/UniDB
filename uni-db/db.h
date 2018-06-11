@@ -3,6 +3,7 @@
 
 
 #include <vector>
+#include <string>
 
 
 std::vector<std::vector<std::string> > SelectQuery(std::string query);
