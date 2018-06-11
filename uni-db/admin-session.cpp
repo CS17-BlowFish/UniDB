@@ -1,4 +1,5 @@
 #include "admin-session.h"
+#include "task.h"
 #include <string>
 
 /* ==================== PRIVATE METHODS ==================== */
@@ -37,7 +38,8 @@ void AdminSession::HomeHelper() {
  *  Run "Add user" activity
 **/
 void AdminSession::AddUserActivity() {
-
+	Task _task;
+	_task.add_user();
 }
 
 
@@ -48,7 +50,8 @@ void AdminSession::AddUserActivity() {
  *  Run "Delete user" activity
 **/
 void AdminSession::DeleteUserActivity() {
-
+	Task _task;
+	_task.remove_user();
 }
 
 
@@ -59,7 +62,11 @@ void AdminSession::DeleteUserActivity() {
  *  Run "Change password" activity
 **/
 void AdminSession::ChangePasswordActivity() {
-
+	std::string password;
+	std::cout << "New password: ";
+	std::cin >> password;
+	Task _task;
+	_task.replace_data(0, admin_id, 1, password);
 }
 
 
