@@ -1,5 +1,5 @@
 #include "student-session.h"
-#include "task.h"
+
 
 /* ==================== PRIVATE METHODS ==================== */
 
@@ -71,11 +71,7 @@ void StudentSession::ViewProfileActivity() {
  *  Run "Change password" activity
 **/
 void StudentSession::ChangePasswordActivity() {
-	std::string password;
-	std::cout << "New password: ";
-	std::cin >> password;
-	Task _task;
-	_task.replace_data(0, id, 1, password);
+
 }
 
 

@@ -5,7 +5,7 @@
 #include <string>
 
 
-class StudentSession {
+class Student {
     private:
         std::string id;
 
@@ -19,9 +19,9 @@ class StudentSession {
 
 
     public:
-		StudentSession();
-       // void Session();
-        ~StudentSession();
+        Student();
+        void Session();
+        ~Student();
 };
 
 
