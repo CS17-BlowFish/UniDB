@@ -1,15 +1,15 @@
 #include "task.h"
 
-// this may differ 
+// this may differ
 
-std::string user_path = "data/user.csv";
-std::string score_path = "data/score.csv";
-std::string student_path = "data/student.csv";
-std::string faculty_path = "data/faculty.csv";
-std::string course_path = "data/course.csv";
+std::string user_path = "C:/Users/Someone/Desktop/project/uni-db/data/user.csv";
+std::string score_path = "C:/Users/Someone/Desktop/project/uni-db/data/score.csv";
+std::string student_path = "C:/Users/Someone/Desktop/project/uni-db/data/student.csv";
+std::string faculty_path = "C:/Users/Someone/Desktop/project/uni-db/data/faculty.csv";
+std::string course_path = "C:/Users/Someone/Desktop/project/uni-db/data/course.csv";
 
-std::string test_path = "/temp.txt";
-std::string log_path = "/log.txt";
+std::string test_path = "C:/Users/Someone/Desktop/project/uni-db/data/temp.txt";
+std::string log_path = "C:/Users/Someone/Desktop/project/uni-db/data/log.txt";
 
 void Task::readFile(std::string _path, Data st[]) {
 	char c;
@@ -177,62 +177,6 @@ void Task::remove_user() {
 	pre_file.close();
 }
 
-// This was replaced with Task::replace_data.
-
-void Task::change_password(std::string _id) {
-	std::string _pass;
-	std::cout << "Password: "; std::cin >> _pass;
-	std::string line;
-	std::ifstream pre_file(user_path);
-	std::ofstream post_file;
-
-	// Detect which line to delete 
-	int line_replace = search_user(_id) + 1;
-	std::cout << std::endl << "This user password will be changed. \n";
-	int num = 1;
-	post_file.open(test_path);
-
-	// Write new content to a "temp" folder
-	while (getline(pre_file, line)) {
-		if (num != line_replace) {
-			post_file << line;
-			num += 1;
-			post_file << "\n";
-		}
-		else {
-			char c; int a = 0;
-			while (pre_file.get(c)) {
-				if (c != ',' && c != '\n' && a != 1) {
-					post_file << c;
-				};
-				if (c == ',') {
-					a += 1;
-					if (a == 1) {
-						post_file << "," << _pass << ",";
-					}
-				}
-				else if (c == '\n') {
-					post_file << "\n";
-					num += 1;
-					break;
-				}
-			}
-		}
-	}
-	post_file.close();
-	pre_file.close();
-	pre_file.open(test_path);
-	post_file.open(user_path);
-
-	// Write it back
-	while (getline(pre_file, line)) {
-		post_file << line;
-		post_file << "\n";
-	}
-	post_file.close();
-	pre_file.close();
-}
-
 // Find the line with that text in condition_column 
 // Replace writing_column with _text data
 void Task::replace_data(int condition_col, std::string _condition_data, int writing_col, std::string _text) {
@@ -309,8 +253,4 @@ void Task::replace_data(int condition_col, std::string _condition_data, int writ
 	post_file.close();
 	pre_file.close();
 	//delete userdata;
-}
-
-void task() {
-
 }
