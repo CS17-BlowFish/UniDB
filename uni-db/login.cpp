@@ -25,7 +25,7 @@ bool LoginScreen(std::string &user_id, std::string &password, std::string &user_
     // Each element of the outer vector is a vector with three elements:
     // user_id, password, user_type (this is defined after the "SELECT" keyword)
 
-    if (query_result.size() < 0) {
+    if (query_result.size() == 0) {
         return false; // login unsuccesfully
     }
 
