@@ -14,11 +14,7 @@ class FacultySession {
 
         void OpenCourseActivity();
         void SummarizeScoreActivity();
-        void ModifyScoreActivity(){
-            std::string faculty_id;
-            std::string course_id;
-            std::string student_id;
-        };
+        void ModifyScoreActivity(){};
         void ChangePasswordActivity();
 
 
