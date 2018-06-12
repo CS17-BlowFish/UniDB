@@ -90,7 +90,7 @@ void FacultySession::ModifyScoreActivity() {
     std::string student_id = io.NextToken();
     std::cout << "Enter the modified score: ";
     double _score = io.NextDouble();
-    std::string score_modify = "IN score SET (score = ) WHERE (course_id == <course_id> AND (student_id == <student_id>";
+    std::string score_modify = "IN score SetQuery (score = ) WHERE (course_id == <course_id> AND (student_id == <student_id>";
 
 }
 
