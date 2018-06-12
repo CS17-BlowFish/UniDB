@@ -56,6 +56,6 @@ std::vector<std::vector<std::string> > SelectQuery(std::string query) {
  * 
  *  Call a SET query
 **/
-std::vector<std::vector<std::string> > SetQuery(std::string query) {
+void SetQuery(std::string query) {
 
 }
