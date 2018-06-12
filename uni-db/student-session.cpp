@@ -108,7 +108,15 @@ void StudentSession::ViewProfileActivity() {
  *  Run "Change password" activity
 **/
 void StudentSession::ChangePasswordActivity() {
+    IO io;
 
+    std::cout << "New password: ";
+
+    string  new_password = io.NextToken();//User enter new password
+
+    std::string query = "IN user SET (password = new_password) WHERE (user_id == id)";
+
+    SetQuery(query);
 }
 
 
