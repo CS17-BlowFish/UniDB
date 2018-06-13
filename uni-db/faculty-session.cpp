@@ -207,7 +207,7 @@ IO io();
 **/
 void FacultySession::ModifyScoreActivity() {
     IO io();
-
+    //Search all courses of the faculty
     std::string course_search_query = "";
     course_search_query += "IN course SELECT course_id, course_name ";
     course_search_query += "WHERE (faculty_id == ";
@@ -215,7 +215,8 @@ void FacultySession::ModifyScoreActivity() {
     course_search_query += ")";
 
     std::vector<std::vector<std::string> > search_result = SelectQuery(course_search_query);
-
+   
+    //Let the faculty choose the course by id and show scores
     std::cout << "Course of Faculty: " << std::endl;
 
     for (int i = 0; i < (int) search_result.size(); i++){
@@ -241,6 +242,7 @@ void FacultySession::ModifyScoreActivity() {
         std::cout << std::endl;
     }
 
+    //Let the faculty input the student id and the modified score
     std::cout << "Please enter student ID to modify score ";
     std::string student_id = io.NextToken();
 
