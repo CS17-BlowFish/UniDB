@@ -144,7 +144,55 @@ void StudentSession::CourseRegisterActivity() {
  *  Run "Deregister for a course" activity
 **/
 void StudentSession::CourseDeregisterActivity() {
+    
+    std::string check_num_courses_query = "";
+    check_num_courses_query += "IN score SELECT course_id ";
+    check_num_courses_query += "WHERE (semester_id == ";
+    check_num_courses_query += SEMESTER_ID;
+    check_num_courses_query += "AND (student_id == ";
+    check_num_courses_query += student_id;
+    check_num_courses_query += ")";
 
+    std::string check_available_courses_query = "";
+    check_available_courses_query += "IN course SELECT * ";
+    check_available_courses_query += "WHERE (semester_id == ";
+    check_available_courses_query += SEMESTER_ID;
+    std::vector<std::vector<std::string> > check_available_courses_result = SelectQuery(check_available_courses_query);
+
+    std::cout << "Courses available this semester:\n";
+    for (int i = 0; i < (int) check_available_courses_result.size(); i++){
+        for (int j = 0; j < (int) check_available_courses_result[i].size(); j++){
+            std::cout << std::setw(5) << check_available_courses_result[i][j];
+        }
+        std::cout << std::endl;
+    }
+
+    std::cout << "Please enter the course ID to choose the course ";
+    IO io();
+    std::string course_id = io.NextToken();
+
+    std::string check_course_query = "";
+    check_course_query += "IN score SELET course_id ";
+    check_course_query += "WHERE (course_id == ";
+    check_course_query += course_id;
+    check_course_query += ") AND student_id == ";
+    check_course_query += student_id;
+    check_course_query += ")";
+
+    std::vector<std::vector<std::string> > check_course_result = SelectQuery(check_course_query);
+    if (check_course_result.size() > 0){
+        std::cout << "You have not registered for that course" << std::endl;
+        std::cout << "\nPress any key to continue" << std::endl;
+        getline();
+        return;
+    }
+
+    std::string register_query = "";
+    deregister_query += "IN score DELET(course_id = ";
+    deregister_query += "AND (student_id = ";
+    deregister_query += student_id;
+    deregister_query += ") AND (score = -1)";
+    DeleteQuery(register_query);
 }
 
 
