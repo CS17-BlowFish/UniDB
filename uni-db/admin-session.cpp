@@ -16,7 +16,7 @@
  *  The home screen
 **/
 void AdminSession::HomeScreen() {
-    IO io;
+    IO io();
 
     do {
         std::string choice = io.NextToken();
@@ -79,7 +79,7 @@ void AdminSession::HomeHelper() {
  *  Run "Add user" activity
 **/
 void AdminSession::AddUserActivity() {
-    IO io;
+    IO io();
 
     std::string type;
     std::string id;
@@ -160,11 +160,11 @@ void AdminSession::AddUserActivity() {
  *  Run "Delete user" activity
 **/
 void AdminSession::DeleteUserActivity() {
-    IO io;
+    IO io();
     std::string id, keyword;// enter id  or keyword
     std::string type; //role student or falcuty
     std::string query;
-     std::string choice;
+    std::string choice;
 
     //choose type
     do
@@ -281,16 +281,24 @@ void AdminSession::DeleteUserActivity() {
  *  Run "Change password" activity
 **/
 void AdminSession::ChangePasswordActivity() {
-    IO io;
+    IO io();
 
     std::cout << "New password: ";
 
-    string  new_password = io.NextToken();//User enter new password
+    std::string new_password = io.NextToken();//User enter new password
 
     std::string query = "IN user SET (password = new_password) WHERE (user_id == admin_id)";
-
+    query += "In User SET (password = ";
+    query += new_password;
+    query += ") WHERE (user_id == ";
+    query += admin_id;
+    query += ")";
     SetQuery(query);
 
+    std::cout << "Password changed.\n";
+    std::cout << "Press any key to continue...";
+    getchar();
+    //return; chac chan return nen khoi
 }
 
 

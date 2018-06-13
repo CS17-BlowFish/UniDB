@@ -13,7 +13,7 @@
  *  Run "Home" activity
 **/
 void StudentSession::HomeScreen() {
-    IO io;
+    IO io();
 
     do {
 
@@ -166,13 +166,23 @@ void StudentSession::ViewProfileActivity() {
  *  Run "Change password" activity
 **/
 void StudentSession::ChangePasswordActivity() {
-    IO io;
+    IO io();
 
     std::cout << "New password: ";
 
     string  new_password = io.NextToken();//User enter new password
 
     std::string query = "IN user SET (password = new_password) WHERE (user_id == id)";
+    query += "In User SET (password = ";
+    query += new_password;
+    query += ") WHERE (user_id == ";
+    query += id;
+    query += ")";
+    SetQuery(query);
+
+    std::cout << "Password changed.\n";
+    std::cout << "Press any key to continue...";
+    getchar();
 
     SetQuery(query);
 }
