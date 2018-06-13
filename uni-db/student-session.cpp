@@ -192,7 +192,7 @@ void StudentSession::CourseDeregisterActivity() {
     deregister_query += "AND (student_id = ";
     deregister_query += student_id;
     deregister_query += ") AND (score = -1)";
-    DeleteQuery(register_query);
+    DeleteQuery(deregister_query);
 }
 
 
