@@ -12,6 +12,17 @@
  *  For output, cout is OK.
 **/
 
+
+bool IO::IsUpperCaseLetter(char c) {
+
+}
+
+
+bool IO::IsLetter(char c) {
+    
+}
+
+
 /**
  *  Constructor
 **/
@@ -78,6 +89,11 @@ double IO::NextDouble() {
     std::string token = NextToken();
     double num = std::stof(token);
     return num;
+}
+
+
+std::string IO::ToUpperCase(std::string s) {
+
 }
 
 
