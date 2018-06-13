@@ -141,7 +141,7 @@ IO io();
                 add_course_query += ")" AND "(course_name = ";
                 add_course_query += course_name;
                 add_course_query += ")" AND "(faculty_id = ";
-                add_course_query += ;
+                add_course_query += faculty_id;
                 add_course_query += ")" AND "(semester_id = ";
                 add_course_query += semester_id;
                 add_course_query += ")" AND "(registered = ";
