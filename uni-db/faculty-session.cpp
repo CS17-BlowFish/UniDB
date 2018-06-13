@@ -1,5 +1,10 @@
 #include "faculty-session.h"
-#include "task.h"
+#include "io.h"
+
+#include <stdio.h>
+#include <iostream>
+#include <string>
+
 
 /* ==================== PRIVATE METHODS ==================== */
 
@@ -11,7 +16,33 @@
  *  Run "Home" Screen
 **/
 void FacultySession::HomeScreen() {
+    IO io;
 
+    do {
+        std::string choice = io.NextToken();
+
+        std::cout << "1.Open Course \n";
+        std::cout << "2.Summarize Score\n";
+        std::cout << "3.Modify Score \n";
+        std::cout << "4.Change Password\n";
+        std::cout << "5.Help??\n";
+
+        if (choice == "1" || choice == "o" || choice == "oc") {
+            OpenCourseActivity();
+        }
+        else if (choice == "2" || choice == "s" || choice == "sum") {
+            SummarizeScoreActivity();
+        }
+        else if (choice == "3" || choice == "r" || choice == "revise") {
+            ModifyScoreActivity();
+        }
+        else if (choice == "4" || choice == "p" || choice == "passwd") {
+            ChangePasswordActivity();
+        }
+        else if (choice == "5") {
+            HomeHelper();
+        }
+    } while(1);
 }
 
 
@@ -27,7 +58,23 @@ void FacultySession::HomeScreen() {
  *  4. Change password
 **/
 void FacultySession::HomeHelper() {
+    std::cout << "*Change\n\n"
+              << "|___ Password             [p]    [passwd]\n\n"
+              << "|___ Address              [ca]            \n\n"
+              << "|___ Phone                [cp]            \n\n"
+              << "*View all course          [c]             \n\n"
+              << "|__View all student       [v]              \n"
+              << "   in course                               \n"
+              << "*Search course            [s]     [sc]      \n"
+              << "|__Search course by name  [scn]           \n"
+              << "|__Search course          [scn]            \n"
+              << "   by falculty            [scf]   [sct]    \n\n"
+              << "*Open course              [o]     [oc]      \n\n"
+              << "*Summarize score          [s]     [sum]     \n\n"
+              << "*Revise score             [r]     [revise]   \n\n";
 
+    std::cout << "Press enter to continue ......";
+    getchar();
 }
 
 
@@ -101,11 +148,7 @@ void FacultySession::ModifyScoreActivity() {
  *  Run "Change password" activity
 **/
 void FacultySession::ChangePasswordActivity() {
-	std::string password;
-	std::cout << "New password: ";
-	std::cin >> password;
-	Task _task;
-	_task.replace_data(0, id, 1, password);
+
 }
 
 
@@ -116,14 +159,12 @@ FacultySession::FacultySession() {}
 
 
 /**
- *  @method Session
+ *  @method Run
  *  @return {void}
  *
  *  Run a faculty session
 **/
-void FacultySession::Session() {
-
-}
+void FacultySession::Run() {}
 
 
 FacultySession::~FacultySession() {}

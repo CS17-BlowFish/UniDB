@@ -9,8 +9,8 @@ class StudentSession {
     private:
         std::string id;
 
-        void HomeActivity();
-        void MainHelper();
+        void HomeScreen();
+        void HomeHelper();
 
         void CourseRegisterActivity();
         void CourseDeregisterActivity();
@@ -19,8 +19,8 @@ class StudentSession {
 
 
     public:
-		StudentSession();
-       // void Session();
+        StudentSession();
+        void Run();
         ~StudentSession();
 };
 

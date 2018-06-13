@@ -2,7 +2,6 @@
 #define IO_H
 
 
-#include <iostream>
 #include <string>
 
 
@@ -19,4 +18,4 @@ class IO {
 };
 
 
-#endif IO_H
+#endif // IO_H

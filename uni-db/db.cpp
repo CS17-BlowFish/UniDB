@@ -16,14 +16,12 @@ std::string TableName(std::string query) {
 
 
 /**
- *  @function SelectQuery
- *  @return {2d vector of string}
- * 
- *  Call a SELECT query
- *  The outer vector contains the rows
- *  The inner vector contains the value of the cells of each row
+ *  @function DeleteQuery
+ *  @return {void} 
+ *  
+ *  Call a DELETE query
 **/
-std::vector<std::vector<std::string> > SelectQuery(std::string query) {
+void DeleteQuery(std::string query) {
 
 }
 
@@ -40,11 +38,24 @@ void InsertQuery(std::string query) {
 
 
 /**
- *  @function DeleteQuery
- *  @return {void} 
- *  
- *  Call a DELETE query
+ *  @function SelectQuery
+ *  @return {2d vector of string}
+ * 
+ *  Call a SELECT query
+ *  The outer vector contains the rows
+ *  The inner vector contains the value of the cells of each row
 **/
-void DeleteQuery(std::string query) {
+std::vector<std::vector<std::string> > SelectQuery(std::string query) {
+
+}
+
+
+/**
+ *  @function SetQuery
+ *  @return {void}
+ * 
+ *  Call a SET query
+**/
+void SetQuery(std::string query) {
 
 }
