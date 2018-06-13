@@ -148,6 +148,7 @@ IO io();
                 add_course_query += registered;
                 add_course_query += ")" AND "(slots = ";
                 add_course_query += slots;
+	        add_course_query += ")";
             
     InsertQuery(add_course_query);
 }
