@@ -14,6 +14,9 @@ class AdminSession {
         void HomeHelper();
 
         void AddUserActivity();
+        void AddStudent();
+        void AddFaculty();
+
         void DeleteUserActivity();
         void ChangePasswordActivity();
 

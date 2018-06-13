@@ -10,7 +10,26 @@
  *  Note: For input, try to use getline and stringstream for all functions
  *  Avoid cin since it will conflict with getline.
  *  For output, cout is OK.
+ *  
+ *  This class is built by Trai
 **/
+
+
+bool IO::IsUpperCaseLetter(char c) {
+    if (isupper(c)) {
+        return true;
+    }
+    return false;
+}
+
+
+bool IO::IsLetter(char c) {
+    if (isalpha(c)) {
+        return true;
+    }
+    return false;
+}
+
 
 /**
  *  Constructor
@@ -21,7 +40,7 @@ IO::IO() {};
 /**
  *  @method ReadLine
  *  @return {std::string}
- *  
+ *
  *  Get the whole line (with whitespaces)
 **/
 std::string IO::ReadLine() {
@@ -78,6 +97,17 @@ double IO::NextDouble() {
     std::string token = NextToken();
     double num = std::stof(token);
     return num;
+}
+
+
+std::string IO::ToUpperCase(std::string s) {
+    for (int i = 0; i < (int) s.length(); i++) {
+        // If the character is a letter but not uppercase, uppercase it!
+        if(IsLetter(s[i]) && !IsUpperCaseLetter(s[i])){
+            s[i] -= 32;
+        }
+    }
+    return s;
 }
 
 

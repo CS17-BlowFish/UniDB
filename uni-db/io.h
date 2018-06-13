@@ -7,6 +7,8 @@
 
 class IO {
     private:
+        bool IsLetter(char c);
+        bool IsUpperCaseLetter(char c);
 
     public:
         IO();
@@ -14,6 +16,7 @@ class IO {
         std::string NextToken();
         int NextInt();
         double NextDouble();
+        std::string ToUpperCase(std::string);
         ~IO();
 };
 
