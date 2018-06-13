@@ -88,7 +88,68 @@ void FacultySession::HomeHelper() {
  *  Run "Open a course" activity
 **/
 void FacultySession::OpenCourseActivity() {
+    //Check if the faculty has reached the maximum number of courses this semester (5 courses)
+IO io();
 
+    std::cout << "Enter semester: ";
+        semester_id = io.NextToken();
+
+    std::string search_faculty_query  = "";
+                search_faculty_query += "IN course SELECT faculty_id WHERE";
+                search_faculty_query += "(semester_id == ";
+                search_faculty_query += semester_id;
+                search_faculty_query += ")";
+            
+    std::vector<std::vector<std::string> > search_faculty_result = SelectQuery(search_faculty_query);
+
+    if (search_faculty_result.size() >= 5)
+    {
+        std::cout << "Reach maximum of courses";
+        return;
+    }
+    
+    else
+    //Insert new course into "course" table
+    
+    //string, 6 digits, auto-increment	
+	std::cout << "Enter the course ID: "; //100% no need 
+	course_id = io.NextToken(); 			
+	
+	//2 letters + 2 digits
+	std::cout << "Enter the course code: ";
+	course_code = io.NextToken();
+    
+    std::cout << "Course's name: ";
+    std::string course_name = io.ToUpperCase(io.ReadLine());
+    
+    //3 digits
+	std::cout << "Enter the semester id: ";
+	semester_id = io.NextToken();
+    
+    //less than or equal to slots
+    std::cout << "Enter the registered: ";
+    std::string registered = io.NextInt();
+    
+    std::cout << "Number of slots: ";
+    std::string slots = io.NextInt();
+    
+    std::string add_course_query  = "";
+                add_course_query += "IN course INSERT (course_id = ";
+                add_course_query += NEXTCOURSEID; //NEXTCOURSEID will be added later
+                add_course_query += ")" AND "(course_code = ";
+                add_course_query += NEXTCOURSEID;
+                add_course_query += ")" AND "(course_name = ";
+                add_course_query += course_name;
+                add_course_query += ")" AND "(faculty_id = ";
+                add_course_query += NEXTCOURSEID;
+                add_course_query += ")" AND "(semester_id = ";
+                add_course_query += NEXTCOURSEID;
+                add_course_query += ")" AND "(registered = ";
+                add_course_query += registered;
+                add_course_query += ")" AND "(slots = ";
+                add_course_query += slots;
+            
+    InsertQuery(add_course_query);
 }
 
 
@@ -99,7 +160,40 @@ void FacultySession::OpenCourseActivity() {
  *  Run "Summarize scores of a course" activity
 **/
 void FacultySession::SummarizeScoreActivity() {
+IO io();
+    //Search all courses of the faculty
+    std::string search_course_query  = "";
+                search_course_query += "IN course SELECT course_id, course_name ";
+                search_course_query += "WHERE (faculty_id == ";
+                search_course_query += faculty_id;
+                search_course_query += ")";
 
+    std::vector<std::vector<std::string> > search_course_result = SelectQuery(search_course_query);
+
+    std::cout << "Course(s) of faculty: " << std::endl;
+
+    for (int i = 0; i < (int) search_course_result.size(); i++){
+        for (int j = 0; j < (int) search_course_result[i].size(); j++){
+            std::cout << std::setw(5) << search_course_result[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+    //Let the faculty choose the course by id and show scores
+    std::cout<< "Choose the course's id: "
+    std::string course_id = io.NextToken();
+
+    std::string show_score_query  = "";
+                show_score_query += "IN score SELECT student_id, score WHERE (course_id == ";
+                show_score_query += course_id;
+                show_score_query += ")";
+    std::vector<std::vector<std::string> > show_score_result = SelectQuery(show_score_query);
+
+    for (int i = 0; i < (int) show_score_result.size(); i++){
+        for (int j = 0; j < (int) show_score_result[i].size(); j++){
+            std::cout << std::setw(5) << show_score_result[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
 }
 
 
