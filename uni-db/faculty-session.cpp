@@ -135,15 +135,15 @@ IO io();
     
     std::string add_course_query  = "";
                 add_course_query += "IN course INSERT (course_id = ";
-                add_course_query += NEXTCOURSEID; //NEXTCOURSEID will be added later
+                add_course_query += course_id;
                 add_course_query += ")" AND "(course_code = ";
-                add_course_query += NEXTCOURSEID;
+                add_course_query += course_code;
                 add_course_query += ")" AND "(course_name = ";
                 add_course_query += course_name;
                 add_course_query += ")" AND "(faculty_id = ";
-                add_course_query += NEXTCOURSEID;
+                add_course_query += ;
                 add_course_query += ")" AND "(semester_id = ";
-                add_course_query += NEXTCOURSEID;
+                add_course_query += semester_id;
                 add_course_query += ")" AND "(registered = ";
                 add_course_query += registered;
                 add_course_query += ")" AND "(slots = ";
