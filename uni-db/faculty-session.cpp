@@ -256,6 +256,7 @@ void FacultySession::ModifyScoreActivity() {
     score_modify_query += course_id;
     score_modify_query += ") AND (student_id == ";
     score_modify_query += student_id;
+    score_modify_query += ")";
 
     SetQuery(score_modify_query);
 }
