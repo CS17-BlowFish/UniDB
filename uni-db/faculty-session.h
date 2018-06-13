@@ -7,7 +7,7 @@
 
 class FacultySession {
     private:
-        std::string id;
+        std::string faculty_id;
 
         void HomeScreen();
         void HomeHelper();

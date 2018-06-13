@@ -50,6 +50,8 @@ void StudentSession::HomeScreen() {
  *  2. Deregister a course
  *  3. View profile
  *  4. Change password
+ *
+ *  Code of Trai
 **/
 void StudentSession::HomeHelper() {
     std::cout << "*Change Password            [p]    [passwd]  \n\n"
@@ -73,20 +75,35 @@ void StudentSession::HomeHelper() {
  *  @return {void}
  *
  *  Run "Register for a course" activity
+ *  Code of Tuan
 **/
 void StudentSession::CourseRegisterActivity() {
-    std::string course_check = "IN score SELECT course_id WHERE (semester_id == <semester_id> AND (student_id == <student_id>";
-    std::vector<std::vector<std::string> > check_result = SelectQuery(course_check);
-    if (check_result[0][0] > 20){
-        std::cout << "Unable to register more course for this semester " << std::endl;
-    }
-    std::string available_course = "IN course SELECT * WHERE (semester_id == <semester_id>)";
-    std::vector<std::vector<std::string> > available_result = SelectQuery(available_course);
+    std::string check_num_courses_query = "";
+    check_num_courses_query += "IN score SELECT course_id ";
+    check_num_courses_query += "WHERE (semester_id == ";
+    check_num_courses_query += SEMESTER_ID;
+    check_num_courses_query += "AND (student_id == ";
+    check_num_courses_query += student_id;
+    check_num_courses_query += ")";
 
-    std::cout << "Course available this semester " << std::endl;
-    for (int i = 0; i < (int) available_result.size(); i++){
-        for (int j = 0; j < (int) available_result[i].size(); j++){
-            std::cout << std::setw(5) << available_result[i][j];
+    std::vector<std::vector<std::string> > check_num_courses_result = SelectQuery(check_num_courses_query);
+    if (check_num_courses_result.size() > 20){
+        std::cout << "Unable to register for more course this semester!\n";
+        std::cout << "\n Press any key to continue...";
+        getchar();
+        return;
+    }
+
+    std::string check_available_courses_query = "";
+    check_available_courses_query += "IN course SELECT * ";
+    check_available_courses_query += "WHERE (semester_id == ";
+    check_available_courses_query += SEMESTER_ID;
+    std::vector<std::vector<std::string> > check_available_courses_result = SelectQuery(check_available_courses_query);
+
+    std::cout << "Courses available this semester:\n";
+    for (int i = 0; i < (int) check_available_courses_result.size(); i++){
+        for (int j = 0; j < (int) check_available_courses_result[i].size(); j++){
+            std::cout << std::setw(5) << check_available_courses_result[i][j];
         }
         std::cout << std::endl;
     }
@@ -95,15 +112,28 @@ void StudentSession::CourseRegisterActivity() {
     IO io();
     std::string course_id = io.NextToken();
 
-    std::string chosen_course = "IN score SELECT course_id WHERE (course_id == <course_id> AND student_id == <student_id>)";
-    std::vector<std::vector<std::string> > chosen_result = SelectQuery(chosen_course);
-    if (chosen_result[0][0] == course_id){
-        std::cout << "You have already registered that course" << std::endl;
-        std::cout << "Press any key to continue " << std::endl;
+    std::string check_course_query = "";
+    check_course_query += "IN score SELECT course_id ";
+    check_course_query += "WHERE (course_id == ";
+    check_course_query += course_id;
+    check_course_query += ") AND student_id == ";
+    check_course_query += student_id;
+    check_course_query += ")";
+
+    std::vector<std::vector<std::string> > check_course_result = SelectQuery(check_course_query);
+    if (check_course_result.size() > 0){
+        std::cout << "You have already registered for that course" << std::endl;
+        std::cout << "\nPress any key to continue" << std::endl;
+        getline();
+        return;
     }
 
-    std::string new_course = "IN score INSERT (course_id == <course_id>) AND (student_id == <student_id>) AND (score = -1)";
-
+    std::string register_query = "";
+    register_query += "IN score INSERT (course_id = ";
+    register_query += ") AND (student_id = ";
+    register_query += student_id;
+    register_query += ") AND (score = -1)";
+    InsertQuery(register_query);
 }
 
 

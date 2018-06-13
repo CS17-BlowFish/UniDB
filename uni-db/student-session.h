@@ -7,7 +7,7 @@
 
 class StudentSession {
     private:
-        std::string id;
+        std::string student_id;
 
         void HomeScreen();
         void HomeHelper();
