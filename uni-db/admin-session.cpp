@@ -79,7 +79,77 @@ void AdminSession::HomeHelper() {
  *  Run "Add user" activity
 **/
 void AdminSession::AddUserActivity() {
+    IO io;
 
+    std::string type;
+    std::string id;
+    std::string query;
+
+    std::string choice;
+    do
+    {
+        std::cout << "1.Student\n";
+        std::cout << "2.Faculty\n";
+
+        choice = io.NextToken();
+
+        if (choice == "1")
+        {
+            type = "student";
+            break;
+        }
+        else if (choice == "2")
+        {
+            type = "faculty";
+            break;
+        }
+        else
+        {
+            std::cout << "Try : ";
+        }
+    }
+    while(1);
+
+    std::cout << "Enter your ID: ";
+    id = io.NextToken();
+
+    //Check Exist Not Yet
+
+    std::string name, phone, birth, address;
+    if (type == "student")
+    {
+        //insert in user
+        query = "IN user INSERT (user_id = id) AND (password = id) AND (user_type = type)";
+        InsertQuery(query);
+
+        //add info
+        std::cout << "Name | Date of birth | Address: "  << '\n';
+        name = io.ReadLine();
+        birth = io.ReadLine();
+        address = io.ReadLine();
+
+        //insert in student
+        query = "IN student INSERT (student_id = id) AND (student_name = name) AND (student_dateofbirth = birth) AND (student_placeofbirth = address)";
+        InsertQuery(query);
+    }
+    else if (type == "faculty")
+    {
+        //insert in user
+        query = "IN user INSERT (user_id = id) AND (password = id) AND (user_type = type)";
+        InsertQuery(query);
+
+        //add info
+        std::cout << "Name | Date of birth | Phone | Address: "  << '\n';
+        name = io.ReadLine();
+        birth = io.ReadLine();
+        phone = io.ReadLine()
+        address = io.ReadLine();
+
+        //insert in faculty
+        query = "IN faculty INSERT (faculty_id = id) AND (faculty_name = name) AND (faculty_dateofbirth = birth) AND (teacher_placeofbirth = address)";
+        InsertQuery(query);
+
+    }
 }
 
 
@@ -90,7 +160,117 @@ void AdminSession::AddUserActivity() {
  *  Run "Delete user" activity
 **/
 void AdminSession::DeleteUserActivity() {
+    IO io;
+    std::string id, keyword;// enter id  or keyword
+    std::string type; //role student or falcuty
+    std::string query;
+     std::string choice;
 
+    //choose type
+    do
+    {
+        std::cout << "1.Student\n";
+        std::cout << "2.Falcuty\n";
+
+        choice = io.NextToken();
+
+        if (choice == "1")
+        {
+            type = "student";
+            break;
+        }
+        else if (choice == "2")
+        {
+            type = "faculty";
+            break;
+        }
+        else
+        {
+            std::cout << "Try : ";
+        }
+    }
+    while(1);
+
+    //choose the way user id, by name, by phone number, by address
+    do
+    {
+        std::cout << "\n1.Delete by User ID\n";
+        std::cout << "2.Delete by Name\n";
+        std::cout << "3.Delete by Phone number\n";
+        std::cout << "4.Delete by Address\n";
+
+        choice = io.NextToken();
+
+        if (choice == "1")//Id
+        {
+            id = io.NextToken();
+            if (type == "student")
+            {
+                query = "IN student SELECT*WHERE (user_id == id)";
+            }
+            else if (type == "teacher")
+            {
+                query = "IN faculty SELECT*WHERE (user_id == id)";
+            }
+
+            break;
+        }
+        else if (choice == "2")//name
+        {
+            keyword = io.NextToken();
+
+            if (type == "student")
+            {
+                query = "IN student SELECT*WHERE (student_name CONTAINS keyword)";
+            }
+            else if (type == "faculty")
+            {
+                query = "IN faculty SELECT*WHERE (faculty_name CONTAINS keyword)";
+            }
+
+            break;
+        }
+        else if (choice == "3")//phone
+        {
+            keyword = io.NextToken();
+
+            //student no phone
+            /*if (type == "student")
+            {
+                query = "IN student SELECT*WHERE ( CONTAINS keyword)";
+            }*/
+            if (type == "faculty")
+            {
+                query = "IN faculty SELECT*WHERE (faculty_phonenumber CONTAINS keyword)";
+            }
+
+            break;
+        }
+        else if (choice == "4")//Address
+        {
+            keyword = io.NextToken();
+
+            if (type == "student")
+            {
+                query = "IN student SELECT*WHERE (student_placeofbirth CONTAINS keyword)";
+            }
+            else if (type == "faculty")
+            {
+                query = "IN faculty SELECT*WHERE (faculty_placeofbirth CONTAINS keyword)";
+            }
+            break;
+        }
+        else
+        {
+            std::cout << "Try: ";
+        }
+
+    }
+    while(1);
+
+    std::vector< std::vector<std::string> > query_result = SelectQuery(query);
+
+    //display , take id , remove in 2 query user and  falcuty or student
 }
 
 
@@ -101,6 +281,15 @@ void AdminSession::DeleteUserActivity() {
  *  Run "Change password" activity
 **/
 void AdminSession::ChangePasswordActivity() {
+    IO io;
+
+    std::cout << "New password: ";
+
+    string  new_password = io.NextToken();//User enter new password
+
+    std::string query = "IN user SET (password = new_password) WHERE (user_id == admin_id)";
+
+    SetQuery(query);
 
 }
 
