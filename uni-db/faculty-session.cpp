@@ -112,19 +112,19 @@ IO io();
     //Insert new course into "course" table
     
     //string, 6 digits, auto-increment	
-	std::cout << "Enter the course ID: "; //100% no need 
-	course_id = io.NextToken(); 			
+    std::cout << "Enter the course ID: "; //100% no need 
+    course_id = io.NextToken(); 			
 	
-	//2 letters + 2 digits
-	std::cout << "Enter the course code: ";
-	course_code = io.NextToken();
+    //2 letters + 2 digits
+    std::cout << "Enter the course code: ";
+    course_code = io.NextToken();
     
     std::cout << "Course's name: ";
     std::string course_name = io.ToUpperCase(io.ReadLine());
     
     //3 digits
-	std::cout << "Enter the semester id: ";
-	semester_id = io.NextToken();
+    std::cout << "Enter the semester id: ";
+    semester_id = io.NextToken();
     
     //less than or equal to slots
     std::cout << "Enter the registered: ";
