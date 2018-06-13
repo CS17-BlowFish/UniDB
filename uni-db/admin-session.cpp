@@ -16,7 +16,7 @@
  *  The home screen
 **/
 void AdminSession::HomeScreen() {
-    IO io;
+    IO io();
 
     do {
         std::string choice = io.NextToken();

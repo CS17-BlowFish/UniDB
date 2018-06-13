@@ -17,7 +17,7 @@
  *  Code from Trai
 **/
 void FacultySession::HomeScreen() {
-    IO io;
+    IO io();
 
     do {
         std::string choice = io.NextToken();
@@ -269,15 +269,24 @@ void FacultySession::ModifyScoreActivity() {
  *  Run "Change password" activity
 **/
 void FacultySession::ChangePasswordActivity() {
-    IO io;
+    IO io();
 
     std::cout << "New password: ";
-    string  new_password = io.NextToken();//User enter new password
+
+    std::string new_password = io.NextToken();//User enter new password
 
     std::string query = "IN user SET (password = new_password) WHERE (user_id == id)";
-
+    query += "In User SET (password = ";
+    query += new_password;
+    query += ") WHERE (user_id == ";
+    query += id;
+    query += ")";
     SetQuery(query);
 
+    std::cout << "Password changed.\n";
+    std::cout << "Press any key to continue...";
+    getchar();
+    //return; chac chan return nen khoi
 }
 
 
