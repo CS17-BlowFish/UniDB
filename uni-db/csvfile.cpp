@@ -283,73 +283,162 @@ void CsvFile::WriteRowWithCells(std::vector<Cell> cells) {
 
 // Tested
 void CsvFile::DeleteRowWithCell(Cell given_cell) {
-    given_cell.GetColumnNumber(column_names);
     std::vector<std::vector<Cell> > rows = ReadRows();
     int num_rows = rows.size();
-    bool to_delete[num_rows];
-    std::fill(to_delete, to_delete + num_rows, true);
-    for (int i = 0; i < (int) rows.size(); i++) {
-        for (int j = 0; j < num_columns; j++) {
-            Cell cell = rows[i][j];
+
+    given_cell.GetColumnNumber(column_names);
+
+    for (std::vector<Cell> &row : rows) {
+        for (Cell &cell : row) {
             cell.GetColumnNumber(column_names);
         }
-        SortCellsByColumnNumber(rows[i]);
+
+        SortCellsByColumnNumber(row);
+    }
+
+    bool to_delete[num_rows];
+    std::fill(to_delete, to_delete + num_rows, true);
+
+    for (int i = 0; i < (int) num_rows; i++) {
         Cell cell_to_compare = rows[i][given_cell.column_number];
+
         if (cell_to_compare.value != given_cell.value) {
             to_delete[i] = false;
         }
     }
+
     std::vector<std::vector<Cell> > new_rows;
     for (int i = 0; i < num_rows; i++) {
         if (!to_delete[i]) {
             new_rows.emplace_back(rows[i]);
         }
     }
+
     WriteRows(new_rows);
 }
 
 
 // Tested
 void CsvFile::DeleteRowWithCells(std::vector<Cell> given_cells) {
+    std::vector<std::vector<Cell> > rows = ReadRows();
+    int num_rows = rows.size();
+
     for (Cell &given_cell : given_cells) {
         given_cell.GetColumnNumber(column_names);
     }
-    std::vector<std::vector<Cell> > rows = ReadRows();
-    int num_rows = rows.size();
-    bool to_delete[num_rows];
-    std::fill(to_delete, to_delete + num_rows, true);
-    for (int i = 0; i < (int) rows.size(); i++) {
-        for (int j = 0; j < num_columns; j++) {
-            Cell cell = rows[i][j];
+
+    for (std::vector<Cell> &row : rows) {
+        for (Cell &cell : row) {
             cell.GetColumnNumber(column_names);
         }
-        SortCellsByColumnNumber(rows[i]);
+
+        SortCellsByColumnNumber(row);
+    }
+
+    bool to_delete[num_rows];
+    std::fill(to_delete, to_delete + num_rows, true);
+
+    for (int i = 0; i < num_rows; i++) {
         for (Cell &given_cell : given_cells) {
             Cell cell_to_compare = rows[i][given_cell.column_number];
+
             if (cell_to_compare.value != given_cell.value) {
                 to_delete[i] = false;
                 break;
             }
         }
     }
+
     std::vector<std::vector<Cell> > new_rows;
+
     for (int i = 0; i < num_rows; i++) {
         if (!to_delete[i]) {
             new_rows.emplace_back(rows[i]);
         }
     }
+
     WriteRows(new_rows);
 }
 
 
-// TODO
-void ChangeCellWithCell(Cell cell_to_change, Cell given_cell) {
+// Tested
+void CsvFile::ChangeRowGivenCell(Cell given_cell, Cell final_cell) {
+    std::vector<std::vector<Cell> > rows = ReadRows();
+    int num_rows = rows.size();
 
+    given_cell.GetColumnNumber(column_names);
+
+    for (std::vector<Cell> &row : rows) {
+        for (Cell &cell : row) {
+            cell.GetColumnNumber(column_names);
+        }
+
+        SortCellsByColumnNumber(row);
+    }
+
+    bool to_change[num_rows];
+    std::fill(to_change, to_change + num_rows, true);
+
+    for (int i = 0; i < num_rows; i++) {
+        Cell cell_to_compare = rows[i][given_cell.column_number];
+
+        if (cell_to_compare.value != given_cell.value) {
+            to_change[i] = false;
+        }
+    }
+
+    final_cell.GetColumnNumber(column_names);
+
+    for (int i = 0; i < num_rows; i++) {
+        if (to_change[i]) {
+            Cell &cell_to_change = rows[i][final_cell.column_number];
+            cell_to_change.value = final_cell.value;
+        }
+    }
+
+    WriteRows(rows);
 }
 
-// TODO
-void ChangeCellWithCells(Cell cell_to_change, Cell given_cells) {
-    
+// Tested
+void CsvFile::ChangeRowGivenCells(std::vector<Cell> given_cells, Cell final_cell) {
+    std::vector<std::vector<Cell> > rows = ReadRows();
+    int num_rows = rows.size();
+
+    for (Cell &given_cell : given_cells) {
+        given_cell.GetColumnNumber(column_names);
+    }
+
+    for (std::vector<Cell> &row : rows) {
+        for (Cell &cell : row) {
+            cell.GetColumnNumber(column_names);
+        }
+
+        SortCellsByColumnNumber(row);
+    }
+
+    bool to_change[num_rows];
+    std::fill(to_change, to_change + num_rows, true);
+
+    for (int i = 0; i < num_rows; i++) {
+        for (Cell &given_cell : given_cells) {
+            Cell cell_to_compare = rows[i][given_cell.column_number];
+
+            if (cell_to_compare.value != given_cell.value) {
+                to_change[i] = false;
+            }
+        }
+    }
+
+    final_cell.GetColumnNumber(column_names);
+
+    for (int i = 0; i < num_rows; i++) {
+        if (to_change[i]) {
+            Cell &cell_to_change = rows[i][final_cell.column_number];
+            cell_to_change.value = final_cell.value;
+        }
+    }
+
+    WriteRows(rows);
 }
 
 CsvFile::~CsvFile() {}

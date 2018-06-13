@@ -33,8 +33,8 @@ class CsvFile {
         void WriteRowWithCells(std::vector<Cell> cells);
         void DeleteRowWithCell(Cell given_cell);
         void DeleteRowWithCells(std::vector<Cell> given_cells);
-        void ChangeCellWithCell(Cell cell_to_change, Cell given_cell);
-        void ChangeCellWithCells(Cell cell_to_change, Cell given_cells);
+        void ChangeRowGivenCell(Cell given_cell, Cell final_cell);
+        void ChangeRowGivenCells(std::vector<Cell> given_cells, Cell final_cell);
         ~CsvFile();
 };
 
