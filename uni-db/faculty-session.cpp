@@ -216,7 +216,6 @@ void FacultySession::ModifyScoreActivity() {
 
     std::vector<std::vector<std::string> > search_result = SelectQuery(course_search_query);
    
-    //Let the faculty choose the course by id and show scores
     std::cout << "Course of Faculty: " << std::endl;
 
     for (int i = 0; i < (int) search_result.size(); i++){
@@ -225,7 +224,8 @@ void FacultySession::ModifyScoreActivity() {
         }
         std::cout << std::endl;
     }
-
+    
+    //Let the faculty choose the course by id and show scores:
     std::cout<< "Please choose the course id: "
     std::string course_id = io.NextToken();
 
