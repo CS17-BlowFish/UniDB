@@ -14,7 +14,7 @@ class FacultySession {
 
         void OpenCourseActivity();
         void SummarizeScoreActivity();
-        void ModifyScoreActivity();
+        void ModifyScoreActivity(){};
         void ChangePasswordActivity();
 
 
