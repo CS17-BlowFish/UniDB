@@ -214,7 +214,7 @@ void FacultySession::ModifyScoreActivity() {
     course_search_query += faculty_id;
     course_search_query += ")";
 
-    std::vector<std::vector<std::string> > search_result = SelectQuery(course_search);
+    std::vector<std::vector<std::string> > search_result = SelectQuery(course_search_query);
 
     std::cout << "Course of Faculty: " << std::endl;
 
