@@ -15,7 +15,6 @@ class Cell {
 
         Cell(std::string _column_name, std::string _value);
         Cell(std::string _column_name, std::string _value, int _column_num);
-        // bool operator < (const &Cell other) const;
         void GetColumnNumber(std::vector<std::string> column_names);
         ~Cell();
 };
