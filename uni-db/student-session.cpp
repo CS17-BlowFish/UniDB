@@ -203,7 +203,22 @@ void StudentSession::CourseDeregisterActivity() {
  *  Run "View profile" activity
 **/
 void StudentSession::ViewProfileActivity() {
-
+   
+    std::string check_num_courses_query = "";
+    //View GTA
+    std::vector<std::vector<std::string> > check_num_courses_result = SelectQuery(check_num_courses_query);
+    
+    Int GPA = 0, gpa_sum = 0, gpa_count = 0;
+    for (check_num_courses_result) {
+        If (check_num_courses_result.score() > 0) {        
+            gpa_sum += check_num_courses_result.score
+               gpa_count++;
+         }
+    }
+    If (gpa_sum > 0 && gpa_count > 0){
+    GPA = gpa_sum / gpa_count;
+    }
+    std::cout << GPA << “\n”;
 }
 
 
