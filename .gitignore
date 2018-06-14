@@ -19,3 +19,7 @@ Makefile
 
 # bat file
 *.bat
+
+
+# test files
+*.test
