@@ -331,14 +331,6 @@ void SetQuery(std::string query_string) {
 
     Cell set_cell(set_request[0], set_request[2]);
 
-    // std::vector<std::vector<std::string> > set_requests = SplitConditions(set_string);
-
-    // std::vector<Cell> set_cells;
-
-    // for (std::vector<std::string> &set_request : set_requests) {
-    //     set_cells.emplace_back(set_request[0], set_request[2]);
-    // }
-
     int conditions_start_pos = query_string.find("WHERE") + 6;
     int conditions_end_pos = query_string.length();
     std::string condition_string
@@ -355,8 +347,35 @@ void SetQuery(std::string query_string) {
     CsvFile csvfile(GenFileName(table_name));
 
     csvfile.ChangeCellGivenCells(condition_cells, set_cell);
+}
 
-    // for (Cell &set_cell : set_cells) {
-    //     csvfile.ChangeCellGivenCells(condition_cells, set_cell);
-    // }
+
+std::string AutoIncrementFacultyID() {
+    CsvFile csvfile(GenFileName("faculty"));
+    std::vector<std::vector<Cell> > rows = csvfile.ReadRows();
+    int num_rows = rows.size();
+    std::string lastest_id = rows[num_rows - 1][0].value;
+
+    int numeric_val = std::stoi(lastest_id.substr(1));
+    numeric_val++;
+    std::string numeric_string = std::to_string(numeric_val);
+    while ((int) numeric_string.length() < 4) {
+        numeric_string = "0" + numeric_string;
+    }
+    std::string new_id = "S" + numeric_string;
+    return new_id;
+}
+
+
+std::string AutoIncrementStudentID() {
+    CsvFile csvfile(GenFileName("student"));
+    std::vector<std::vector<Cell> > rows = csvfile.ReadRows();
+    int num_rows = rows.size();
+    std::string lastest_id = rows[num_rows - 1][0].value;
+
+    int numeric_val = std::stoi(lastest_id);
+    numeric_val++;
+    std::string new_id = std::to_string(numeric_val);
+
+    return new_id;
 }

@@ -16,6 +16,8 @@ std::vector<std::string> SplitRequestColumns(std::string request);
 std::vector<std::vector<std::string> > SelectQuery(std::string query_string);
 std::vector<std::vector<std::string> > SearchQuery(std::string query_string);
 void SetQuery(std::string query_string);
+std::string AutoIncrementFacultyID();
+std::string AutoIncrementStudentID();
 
 
 #endif // DB_H
