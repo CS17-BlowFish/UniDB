@@ -367,7 +367,7 @@ void CsvFile::DeleteRowWithCells(std::vector<Cell> given_cells) {
 
 
 // Tested
-void CsvFile::ChangeRowGivenCell(Cell given_cell, Cell final_cell) {
+void CsvFile::ChangeCellGivenCell(Cell given_cell, Cell final_cell) {
     std::vector<std::vector<Cell> > rows = ReadRows();
     int num_rows = rows.size();
 
@@ -405,7 +405,7 @@ void CsvFile::ChangeRowGivenCell(Cell given_cell, Cell final_cell) {
 }
 
 // Tested
-void CsvFile::ChangeRowGivenCells(std::vector<Cell> given_cells, Cell final_cell) {
+void CsvFile::ChangeCellGivenCells(std::vector<Cell> given_cells, Cell final_cell) {
     std::vector<std::vector<Cell> > rows = ReadRows();
     int num_rows = rows.size();
 
@@ -446,5 +446,6 @@ void CsvFile::ChangeRowGivenCells(std::vector<Cell> given_cells, Cell final_cell
 
     WriteRows(rows);
 }
+
 
 CsvFile::~CsvFile() {}

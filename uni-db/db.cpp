@@ -3,6 +3,7 @@
 #include "csvfile.h"
 #include "io.h"
 
+#include <iostream>
 #include <unordered_map>
 #include <sstream>
 #include <string>
@@ -89,6 +90,7 @@ inline std::string GenFileName(std::string table_name) {
  *  Call a DELETE query
  *  DELETE query syntax:
  *  IN <table_name>
+ *  Tested!
 **/
 void DeleteQuery(std::string query_string) {
     std::string table_name = SplitTableName(query_string);
@@ -113,6 +115,7 @@ void DeleteQuery(std::string query_string) {
  *  @return {void}
  *
  *  Call a INSERT query
+ *  Tested!
 **/
 void InsertQuery(std::string query_string) {
     std::string table_name = SplitTableName(query_string);
@@ -135,16 +138,24 @@ void InsertQuery(std::string query_string) {
 
 std::vector<std::string> SplitRequestColumns(std::string request) {
     IO io;
-    std::vector<std::string> result;
     request = io.StripWhitespaces(request);
+    std::vector<std::pair<int, int> > positions;
     int start_pos = 0;
     for (int i = 0; i < (int) request.length(); i++) {
         if (request[i] == ',') {
-            std::string request_column = request.substr(start_pos, i - start_pos);
-            result.emplace_back(request_column);
+            positions.emplace_back(start_pos, i - start_pos);
             start_pos = i + 1;
         }
     }
+
+    positions.emplace_back(start_pos, request.length());
+
+    std::vector<std::string> result;
+
+    for (std::pair<int, int> &position : positions) {
+        result.emplace_back(request.substr(position.first, position.second));
+    }
+
     return result;
 }
 
@@ -156,6 +167,7 @@ std::vector<std::string> SplitRequestColumns(std::string request) {
  *  Call a SELECT query
  *  The outer vector contains the rows
  *  The inner vector contains the value of the cells of each row
+ *  Tested!
 **/
 std::vector<std::vector<std::string> > SelectQuery(std::string query_string) {
     std::string table_name = SplitTableName(query_string);
@@ -166,12 +178,12 @@ std::vector<std::vector<std::string> > SelectQuery(std::string query_string) {
     std::vector<std::string> column_names = csvfile.ColumnNames();
 
     int request_start_pos = query_string.find("SELECT") + 7;
-    int request_end_pos = query_string.find("WHERE") - 1;
+    int request_end_pos = query_string.find("WHERE");
     std::string request_string
             = query_string.substr(request_start_pos, request_end_pos - request_start_pos);
     std::vector<std::string> request_columns;
 
-    if (request_string.find('*')) {
+    if (request_string.find("*") != std::string::npos) {
         request_columns = column_names;
     }
     else {
@@ -233,6 +245,9 @@ std::vector<std::vector<std::string> > SelectQuery(std::string query_string) {
 }
 
 
+/**
+ *   Tested!
+**/
 std::vector<std::vector<std::string> > SearchQuery(std::string query_string) {
     std::string table_name = SplitTableName(query_string);
     CsvFile csvfile(GenFileName(table_name));
@@ -242,19 +257,19 @@ std::vector<std::vector<std::string> > SearchQuery(std::string query_string) {
     std::vector<std::string> column_names = csvfile.ColumnNames();
 
     int request_start_pos = query_string.find("SEARCH") + 7;
-    int request_end_pos = query_string.find("WHERE") - 1;
+    int request_end_pos = query_string.find("WHERE");
     std::string request_string
             = query_string.substr(request_start_pos, request_end_pos - request_start_pos);
     std::vector<std::string> request_columns;
 
-    if (request_string.find('*')) {
+    if (request_string.find("*") != std::string::npos) {
         request_columns = column_names;
     }
     else {
         request_columns = SplitRequestColumns(request_string);
     }
 
-    int condition_pos = query_string.find("WHERE") + 6;
+    int condition_pos = query_string.find("WHERE") + 5;
     std::string condition_string = query_string.substr(condition_pos);
     std::vector<std::string> tokens = SplitTokens(condition_string);
     std::string search_column = tokens[0];
@@ -269,7 +284,7 @@ std::vector<std::vector<std::string> > SearchQuery(std::string query_string) {
     for (int i = 0; i < num_rows; i++) {
         Cell cell_to_compare = table[i][search_cell.column_number];
 
-        if (cell_to_compare.value.find(search_cell.value) == cell_to_compare.value.length()) {
+        if (cell_to_compare.value.find(search_cell.value) == std::string::npos) {
             to_select[i] = false;
         }
     }
@@ -298,8 +313,6 @@ std::vector<std::vector<std::string> > SearchQuery(std::string query_string) {
 }
 
 
-
-
 /**
  *  @function SetQuery
  *  @return {void}
@@ -310,17 +323,21 @@ void SetQuery(std::string query_string) {
     std::string table_name = SplitTableName(query_string);
 
     int set_string_start_pos = query_string.find("SET") + 4;
-    int set_string_end_pos = query_string.find("WHERE") - 1;
+    int set_string_end_pos = query_string.find("WHERE");
 
     std::string set_string = query_string.substr(set_string_start_pos, set_string_end_pos - set_string_start_pos);
 
-    std::vector<std::vector<std::string> > set_requests = SplitConditions(set_string);
+    std::vector<std::string> set_request = SplitTokens(set_string);
 
-    std::vector<Cell> set_cells;
+    Cell set_cell(set_request[0], set_request[2]);
 
-    for (std::vector<std::string> &set_request : set_requests) {
-        set_cells.emplace_back(set_request[0], set_request[2]);
-    }
+    // std::vector<std::vector<std::string> > set_requests = SplitConditions(set_string);
+
+    // std::vector<Cell> set_cells;
+
+    // for (std::vector<std::string> &set_request : set_requests) {
+    //     set_cells.emplace_back(set_request[0], set_request[2]);
+    // }
 
     int conditions_start_pos = query_string.find("WHERE") + 6;
     int conditions_end_pos = query_string.length();
@@ -337,7 +354,9 @@ void SetQuery(std::string query_string) {
 
     CsvFile csvfile(GenFileName(table_name));
 
-    for (Cell &set_cell : set_cells) {
-        csvfile.ChangeRowGivenCells(condition_cells, set_cell);
-    }
+    csvfile.ChangeCellGivenCells(condition_cells, set_cell);
+
+    // for (Cell &set_cell : set_cells) {
+    //     csvfile.ChangeCellGivenCells(condition_cells, set_cell);
+    // }
 }
