@@ -13,14 +13,24 @@ class AdminSession {
         void HomeScreen();
         void HomeHelper();
 
-        void AddUserActivity();
-        void AddStudent();
         void AddFaculty();
+        void AddStudent();
+        void AddUserActivity();
 
+        void SearchFaculty();
+        void SearchStudent();
+        void SearchUser();
+
+        void DeleteFaculty();
+        void DeleteStudent();
+        void DeleteUser();
         void DeleteUserActivity();
+
         void ChangePasswordActivity();
 
     public:
+        bool is_logged_in = false;
+
         AdminSession(std::string _admin_id);
         void Run();
         ~AdminSession();

@@ -1,5 +1,7 @@
 #include "admin-session.h"
+#include "db.h"
 #include "io.h"
+#include "screen.h"
 
 #include <stdio.h>
 #include <iostream>
@@ -7,39 +9,6 @@
 
 
 /* ==================== PRIVATE METHODS ==================== */
-
-
-/**
- *  @method HomeScreen
- *  @return {void}
- *
- *  The home screen
-**/
-void AdminSession::HomeScreen() {
-    IO io;
-
-    do {
-        std::string choice = io.NextToken();
-
-        std::cout << "1.Add User\n";
-        std::cout << "2.Delete User\n";
-        std::cout << "3.Change password \n";
-        std::cout << "4.Help??\n";
-
-        if (choice == "1" || choice == "af" || choice == "at") {
-            AddUserActivity();
-        }
-        else if (choice == "2" || choice == "df" || choice == "dt" || choice == "ds") {
-            DeleteUserActivity();
-        }
-        else if (choice == "3" || choice == "p" || choice == "passwd") {
-            ChangePasswordActivity();
-        }
-        else if (choice == "4") {
-            HomeHelper();
-        }
-    } while(1);
-}
 
 
 /**
@@ -53,95 +22,92 @@ void AdminSession::HomeScreen() {
  *  3. Change password
 **/
 void AdminSession::HomeHelper() {
-    std::cout << "*Change Password            [p]   [passwd]\n"
-              << "\n*Show User\n"
-              << "|___Show faculty            [f]   [t]     [1 1]  \n"
-              << "|___Show Student            [s]           [1 1]  \n"
-              << "\n*Search User by name\n"
-              << "|___Search Faculty by name  [sfn] [stn]   [2 1]  \n"
-              << "|___Search Student by name  [ssn]         [2 2]   \n"
-              << "\n*Add User\n"
-              << "|___Add Faculty             [af]  [at]    [3 1]    \n"
-              << "|___Add Studdent            [as]          [2 2]    \n"
-              << "\n*Delete User\n"
-              << "|___Delete Falculty         [df]  [dt]    [4 1]     \n"
-             << "|___Delete Student          [ds]          [4 2]      \n";
-
-    std::cout << "Press enter to continue ......";
-    getchar();
+    screen::PrintLine("Choose an activity: please input a number");
+    screen::PrintLine("1. Add User");
+    screen::PrintLine("2. Delete User");
+    screen::PrintLine("3. Change Password");
+    // screen::PrintLine("4. Help");
+    screen::PrintLine("4. Log Out");
+    screen::PrintLine("5. Exit");
 }
 
 
-void AdminSession::AddStudent() {
-    // Get info of student
-    std::cout << "Name: ";
-    std::string student_name = io.ToUpperCase(io.ReadLine());
+/**
+ *  @method HomeScreen
+ *  @return {void}
+ *
+ *  The home screen
+**/
+void AdminSession::HomeScreen() {
 
-    std::cout << "Date of birth: ";
-    std::string student_dateofbirth = io.NextToken();
+    while (true) {
+        HomeHelper();
+        screen::PadCommand();
+        std::cout << "Next activity: ";
 
-    std::cout << "Place of birth: ";
-    std::string student_placeofbirth = io.ReadLine();
-
-
-    // Insert new user to "user" table
-    std::string add_user_query = "";
-
-    add_user_query += "IN user INSERT (user_id = ";
-    add_user_query += NEXTSTUDENTID; // NEXTSTUDENTID will be added later
-    add_user_query += ") AND (password = ";
-    add_user_query += NEXTSTUDENTID; // NEXTSTUDENTID will be added later
-    add_user_query += ") AND (user_type = student)";
-
-    InsertQuery(add_user_query);
-
-    // Insert new student to "student" table
-    std::string add_student_query = "";
-
-    add_student_query += "IN student INSERT (student_id = ";
-    add_student_query += NEXTSTUDENTID; // NEXTSTUDENTID will be added later
-    add_student_query += ") AND (student_name = ";
-    add_student_query += student_name;
-    add_student_query += ") AND (student_dateofbirth = ";
-    add_student_query += student_dateofbirth;
-    add_student_query += ") AND (student_placeofbirth = ";
-    add_student_query += student_placeofbirth;
-
-    InsertQuery(add_student_query);
+        std::string cmd = io::NextToken();
+        if (cmd == "1") {
+            AddUserActivity();
+            break;
+        }
+        else if (cmd == "2") {
+            DeleteUserActivity();
+            break;
+        }
+        else if (cmd == "3") {
+            ChangePasswordActivity();
+            break;
+        }
+        else if (cmd == "4") {
+            is_logged_in = false;
+            return;
+        }
+        else if (cmd == "5") {
+            exit(0);
+        }
+        else {
+            screen::Pad();
+            screen::ErrorMessage("Invalid choice.");
+            screen::Pend();
+            screen::Clear();
+        }
+    }
 }
 
 
 void AdminSession::AddFaculty() {
     // Get info of Faculty
-    std::cout << "Name: ";
-    std::string faculty_name = io.ToUpperCase(io.ReadLine());
+    screen::Print("Name: ");
+    std::string faculty_name = io::ToUpperCase(io::ReadLine());
 
-    std::cout << "Date of birth: ";
-    std::string faculty_dateofbirth = io.NextToken();
+    screen::Print("Date of birth: ");
+    std::string faculty_dateofbirth = io::NextToken();
 
-    std::cout << "Phone number: ";
-    std::string faculty_phonenumber = io.NextToken();
+    screen::Print("Phone number: ");
+    std::string faculty_phonenumber = io::NextToken();
 
-    std::cout << "Place of birth: ";
-    std::string faculty_placeofbirth = io.ReadLine();
+    screen::Print("Place of birth: ");
+    std::string faculty_placeofbirth = io::ReadLine();
 
+    // Generate faculty_id
+    std::string faculty_id = db::AutoIncrementFacultyID();
 
     // Insert new user to "user" table
     std::string add_user_query = "";
 
     add_user_query += "IN user INSERT (user_id = ";
-    add_user_query += NEXTFACULTYID; // NEXTFACULTYID will be added later
+    add_user_query += faculty_id;
     add_user_query += ") AND (password = ";
-    add_user_query += NEXTFACULTYID; // NEXTFACULTYID will be added later
+    add_user_query += faculty_id;
     add_user_query += ") AND (user_type = faculty)";
 
-    InsertQuery(add_user_query);
+    db::InsertQuery(add_user_query);
 
     // Insert new faculty to "faculty" table
     std::string add_faculty_query = "";
 
     add_faculty_query += "IN faculty INSERT (faculty_id = ";
-    add_faculty_query += NEXTFACULTYID; // NEXTFACULTYID will be added later
+    add_faculty_query += faculty_id;
     add_faculty_query += ") AND (faculty_name = ";
     add_faculty_query += faculty_name;
     add_faculty_query += ") AND (faculty_dateofbirth = ";
@@ -150,8 +116,67 @@ void AdminSession::AddFaculty() {
     add_faculty_query += faculty_phonenumber;
     add_faculty_query += ") AND (faculty_placeofbirth = ";
     add_faculty_query += faculty_placeofbirth;
+    add_faculty_query += ")";
 
-    InsertQuery(add_faculty_query);
+    db::InsertQuery(add_faculty_query);
+
+    screen::AddEmptyLines(2);
+    screen::PrintLine("New faculty added!\n");
+    screen::Pad(); std::cout << "* Faculty ID: " << faculty_id << '\n';
+    screen::Pad(); std::cout << "* Password: " << faculty_id << '\n';
+
+    screen::Pend();
+    screen::Clear();
+}
+
+
+void AdminSession::AddStudent() {
+    // Get info of student
+    screen::Print("Name: ");
+    std::string student_name = io::ToUpperCase(io::ReadLine());
+
+    screen::Print("Date of birth: ");
+    std::string student_dateofbirth = io::NextToken();
+
+    screen::Print("Place of birth: ");
+    std::string student_placeofbirth = io::ReadLine();
+
+    // Generate new student_id
+    std::string student_id = db::AutoIncrementStudentID();
+
+    // Insert new user to "user" table
+    std::string add_user_query = "";
+
+    add_user_query += "IN user INSERT (user_id = ";
+    add_user_query += student_id;
+    add_user_query += ") AND (password = ";
+    add_user_query += student_id;
+    add_user_query += ") AND (user_type = student)";
+
+    db::InsertQuery(add_user_query);
+
+    // Insert new student to "student" table
+    std::string add_student_query = "";
+
+    add_student_query += "IN student INSERT (student_id = ";
+    add_student_query += student_id; // NEXTSTUDENTID will be added later
+    add_student_query += ") AND (student_name = ";
+    add_student_query += student_name;
+    add_student_query += ") AND (student_dateofbirth = ";
+    add_student_query += student_dateofbirth;
+    add_student_query += ") AND (student_placeofbirth = ";
+    add_student_query += student_placeofbirth;
+    add_student_query += ")";
+
+    db::InsertQuery(add_student_query);
+
+    screen::AddEmptyLines(2);
+    screen::PrintLine("New student added!\n");
+    screen::Pad(); std::cout << "* Student ID: " << student_id << '\n';
+    screen::Pad(); std::cout << "* Password: " << student_id << '\n';
+
+    screen::Pend();
+    screen::Clear();
 }
 
 
@@ -163,22 +188,306 @@ void AdminSession::AddFaculty() {
  *  Code of Trai (has been fixed 1 time)
 **/
 void AdminSession::AddUserActivity() {
-    IO io();
+    screen::PrintTitle("ADD USER ACTIVITY");
+    screen::PrintLine("Choose account type to add: please input a number");
+    screen::PrintLine("1. Faculty");
+    screen::PrintLine("2. Student");
 
-    std::cout << "1.Student\n";
-    std::cout << "2.Faculty\n";
+    screen::AddEmptyLines(1);
+    screen::PadCommand();
+    std::string cmd = io::NextToken();
 
-    std::string choice = io.NextToken();
-
-    if (choice == "1") {
-        AddStudent();
-    }
-    else if (choice == "2") {
+    if (cmd == "1") {
         AddFaculty();
     }
+    else if (cmd == "2") {
+        AddStudent();
+    }
     else {
-        std::cout << "Invalid choice. Press any key to continue...";
-        getchar();
+        screen::ErrorMessage("Invalid choice");
+        screen::Pend();
+        screen::Clear();
+        return;
+    }
+}
+
+
+void AdminSession::SearchFaculty() {
+    screen::PrintLine("Search Faculty: Choose search method: input a number");
+    screen::PrintLine("1. By id");
+    screen::PrintLine("2. By name");
+    screen::PrintLine("3. By date of birth");
+    screen::PrintLine("4. By phone number");
+    screen::PrintLine("5. By place of birth");
+
+    screen::AddEmptyLines(1);
+    screen::PadCommand();
+    std::string cmd = io::NextToken();
+
+    screen::AddEmptyLines(1);
+    screen::Pad(); std::cout << "Insert keyword: ";
+    std::string keyword = io::NextToken();
+
+    if (cmd == "1") {
+        std::string search_query;
+        search_query += "IN faculty SEARCH * WHERE faculty_id CONTAINS ";
+        search_query += keyword;
+        std::vector<std::vector<std::string> > query_result = db::SearchQuery(search_query);
+        std::vector<std::string> table_headers = db::TableHeaders("faculty");
+        screen::AddEmptyLines(1);
+        screen::PrintTable(table_headers, query_result);
+    }
+    else if (cmd == "2") {
+        std::string search_query;
+        search_query += "IN faculty SEARCH * WHERE faculty_name CONTAINS ";
+        search_query += keyword;
+        std::vector<std::vector<std::string> > query_result = db::SearchQuery(search_query);
+        std::vector<std::string> table_headers = db::TableHeaders("faculty");
+        screen::AddEmptyLines(1);
+        screen::PrintTable(table_headers, query_result);
+    }
+    else if (cmd == "3") {
+        std::string search_query;
+        search_query += "IN faculty SEARCH * WHERE faculty_dateofbirth CONTAINS ";
+        search_query += keyword;
+        std::vector<std::vector<std::string> > query_result = db::SearchQuery(search_query);
+        std::vector<std::string> table_headers = db::TableHeaders("faculty");
+        screen::AddEmptyLines(1);
+        screen::PrintTable(table_headers, query_result);
+    }
+    else if (cmd == "4") {
+        std::string search_query;
+        search_query += "IN faculty SEARCH * WHERE faculty_phonenumber CONTAINS ";
+        search_query += keyword;
+        std::vector<std::vector<std::string> > query_result = db::SearchQuery(search_query);
+        std::vector<std::string> table_headers = db::TableHeaders("faculty");
+        screen::AddEmptyLines(1);
+        screen::PrintTable(table_headers, query_result);
+    }
+    else if (cmd == "5") {
+        std::string search_query;
+        search_query += "IN faculty SEARCH * WHERE faculty_placeofbirth CONTAINS ";
+        search_query += keyword;
+        std::vector<std::vector<std::string> > query_result = db::SearchQuery(search_query);
+        std::vector<std::string> table_headers = db::TableHeaders("faculty");
+        screen::AddEmptyLines(1);
+        screen::PrintTable(table_headers, query_result);
+    }
+    else {
+        screen::ErrorMessage("Invalid choice");
+        screen::Pend();
+        screen::Clear();
+        return;
+    }
+}
+
+
+void AdminSession::SearchStudent() {
+    screen::PrintLine("Search Student: Choose search method: input a number");
+    screen::PrintLine("1. By id");
+    screen::PrintLine("2. By name");
+    screen::PrintLine("3. By date of birth");
+    screen::PrintLine("4. By place of birth");
+
+    screen::AddEmptyLines(1);
+    screen::PadCommand();
+    std::string cmd = io::NextToken();
+
+    screen::AddEmptyLines(1);
+    screen::Pad(); std::cout << "Insert keyword: ";
+    std::string keyword = io::NextToken();
+
+    if (cmd == "1") {
+        std::string search_query;
+        search_query += "IN student SEARCH * WHERE student_id CONTAINS ";
+        search_query += keyword;
+        std::vector<std::vector<std::string> > query_result = db::SearchQuery(search_query);
+        std::vector<std::string> table_headers = db::TableHeaders("student");
+        screen::AddEmptyLines(1);
+        screen::PrintTable(table_headers, query_result);
+    }
+    else if (cmd == "2") {
+        std::string search_query;
+        search_query += "IN student SEARCH * WHERE student_name CONTAINS ";
+        search_query += keyword;
+        std::vector<std::vector<std::string> > query_result = db::SearchQuery(search_query);
+        std::vector<std::string> table_headers = db::TableHeaders("student");
+        screen::AddEmptyLines(1);
+        screen::PrintTable(table_headers, query_result);
+    }
+    else if (cmd == "3") {
+        std::string search_query;
+        search_query += "IN student SEARCH * WHERE student_dateofbirth CONTAINS ";
+        search_query += keyword;
+        std::vector<std::vector<std::string> > query_result = db::SearchQuery(search_query);
+        std::vector<std::string> table_headers = db::TableHeaders("student");
+        screen::AddEmptyLines(1);
+        screen::PrintTable(table_headers, query_result);
+    }
+    else if (cmd == "4") {
+        std::string search_query;
+        search_query += "IN student SEARCH * WHERE student_placeofbirth CONTAINS ";
+        search_query += keyword;
+        std::vector<std::vector<std::string> > query_result = db::SearchQuery(search_query);
+        std::vector<std::string> table_headers = db::TableHeaders("student");
+        screen::AddEmptyLines(1);
+        screen::PrintTable(table_headers, query_result);
+    }
+    else {
+        screen::ErrorMessage("Invalid choice");
+        screen::Pend();
+        screen::Clear();
+        return;
+    }
+}
+
+void AdminSession::SearchUser() {
+    screen::PrintLine("Choose account type to search: please input a number");
+    screen::PrintLine("1. Faculty");
+    screen::PrintLine("2. Student");
+
+    screen::AddEmptyLines(1);
+    screen::PadCommand();
+    std::string cmd = io::NextToken();
+
+    if (cmd == "1") {
+        SearchFaculty();
+    }
+    else if (cmd == "2") {
+        SearchStudent();
+    }
+    else {
+        screen::ErrorMessage("Invalid choice.");
+        screen::Pend();
+        screen::Clear();
+        return;
+    }
+}
+
+
+void AdminSession::DeleteFaculty() {
+    screen::AddEmptyLines(1);
+    screen::PadCommand();
+    std::cout << "Faculty ID: ";
+    std::string faculty_id = io::NextToken();
+
+    std::string check_query = "";
+    check_query += "IN faculty SELECT * WHERE (faculty_id == ";
+    check_query += faculty_id;
+    check_query += ")";
+    std::vector<std::vector<std::string> > check_query_result = db::SelectQuery(check_query);
+    std::vector<std::string> table_headers = db::TableHeaders("faculty");
+
+    screen::Pad();
+    if (check_query_result.size() > 0) {
+        // Verification
+        std::cout << "The program found 1 result:\n";
+        screen::PrintTable(table_headers, check_query_result);
+        screen::AddEmptyLines(2);
+
+        screen::PrintLine("Are you sure you want to delete this account?");
+        screen::PrintLine("1. YES");
+        screen::PrintLine("2. NO");
+        screen::PadCommand();
+        std::string cmd = io::NextToken();
+        if (cmd == "2") {
+            return;
+        }
+
+        // Delete from "user" table
+        std::string delete_user_query = "";
+        delete_user_query += "IN user REMOVE WHERE (user_id == ";
+        delete_user_query += faculty_id;
+        delete_user_query += ")";
+        db::DeleteQuery(delete_user_query);
+
+        // Delete from "faculty" table
+        std::string delete_faculty_query = "";
+        delete_faculty_query += "IN faculty REMOVE WHERE (faculty_id == ";
+        delete_faculty_query += faculty_id;
+        delete_faculty_query += ")";
+        db::DeleteQuery(delete_faculty_query);
+    }
+    else {
+        screen::ErrorMessage("faculty_id not found.");
+        screen::Pend();
+        screen::Clear();
+        return;
+    }
+}
+
+
+void AdminSession::DeleteStudent() {
+    screen::AddEmptyLines(1);
+    screen::PadCommand();
+    std::cout << "Student ID: ";
+    std::string student_id = io::NextToken();
+
+    std::string check_query = "";
+    check_query += "IN student SELECT * WHERE (student_id == ";
+    check_query += student_id;
+    check_query += ")";
+    std::vector<std::vector<std::string> > check_query_result = db::SelectQuery(check_query);
+    std::vector<std::string> table_headers = db::TableHeaders("student");
+
+    screen::Pad();
+    if (check_query_result.size() > 0) {
+        // Verification
+        std::cout << "The program found 1 result:\n";
+        screen::PrintTable(table_headers, check_query_result);
+        screen::AddEmptyLines(2);
+
+        screen::PrintLine("Are you sure you want to delete this account?");
+        screen::PrintLine("1. YES");
+        screen::PrintLine("2. NO");
+        screen::PadCommand();
+        std::string cmd = io::NextToken();
+        if (cmd == "2") {
+            return;
+        }
+
+        // Delete from "user" table
+        std::string delete_user_query = "";
+        delete_user_query += "IN user REMOVE WHERE (user_id == ";
+        delete_user_query += student_id;
+        delete_user_query += ")";
+        db::DeleteQuery(delete_user_query);
+
+        // Delete from "student" table
+        std::string delete_student_query = "";
+        delete_student_query += "IN student REMOVE WHERE (student_id == ";
+        delete_student_query += student_id;
+        delete_student_query += ")";
+        db::DeleteQuery(delete_student_query);
+    }
+    else {
+        screen::ErrorMessage("student_id not found.");
+        screen::Pend();
+        screen::Clear();
+        return;
+    }
+}
+
+
+void AdminSession::DeleteUser() {
+    screen::PrintLine("Choose account type to delete: please input a number");
+    screen::PrintLine("1. Faculty");
+    screen::PrintLine("2. Student");
+
+    screen::AddEmptyLines(1);
+    screen::PadCommand();
+    std::string cmd = io::NextToken();
+
+    if (cmd == "1") {
+        DeleteFaculty();
+    }
+    else if (cmd == "2") {
+        DeleteStudent();
+    }
+    else {
+        screen::ErrorMessage("Invalid choice");
+        screen::Pend();
+        screen::Clear();
         return;
     }
 }
@@ -192,116 +501,34 @@ void AdminSession::AddUserActivity() {
  *  Code from Trai (has not been fixed)
 **/
 void AdminSession::DeleteUserActivity() {
-    IO io();
-    std::string id, keyword;// enter id  or keyword
-    std::string user_type; //role student or falcuty
-    std::string query;
-    std::string choice;
+    screen::PadWidth(20);
+    screen::PrintTitle("DELETE USER ACTIVITY");
 
-    //choose user_type
-    do {
-        std::cout << "1.Student\n";
-        std::cout << "2.Falcuty\n";
+    while (true) {
+        screen::PrintLine("Do you want to:\n");
+        screen::PrintLine("1. Search for the user first\n");
+        screen::PrintLine("2. Delete without searching (can only delete by user_id)\n");
+        screen::PrintLine("3. Go back to Home Screen\n");
 
-        choice = io.NextToken();
+        screen::PadCommand();
+        std::string cmd = io::NextToken();
 
-        if (choice == "1")
-        {
-            user_type = "student";
-            break;
+        if (cmd == "1") {
+            SearchUser();
         }
-        else if (choice == "2")
-        {
-            user_type = "faculty";
-            break;
+        else if (cmd == "2") {
+            DeleteUser();
         }
-        else
-        {
-            std::cout << "Try : ";
+        else if (cmd == "3") {
+            return;
+        }
+        else {
+            screen::ErrorMessage("Invalid choice");
+            screen::Pend();
+            screen::Clear();
+            return;
         }
     }
-    while(1);
-
-    //choose the way user id, by name, by phone number, by address
-    do
-    {
-        std::cout << "\n1.Delete by User ID\n";
-        std::cout << "2.Delete by Name\n";
-        std::cout << "3.Delete by Phone number\n";
-        std::cout << "4.Delete by Address\n";
-
-        choice = io.NextToken();
-
-        if (choice == "1")//Id
-        {
-            id = io.NextToken();
-            if (user_type == "student")
-            {
-                query = "IN student SELECT*WHERE (user_id == id)";
-            }
-            else if (user_type == "teacher")
-            {
-                query = "IN faculty SELECT*WHERE (user_id == id)";
-            }
-
-            break;
-        }
-        else if (choice == "2")//name
-        {
-            keyword = io.NextToken();
-
-            if (user_type == "student")
-            {
-                query = "IN student SELECT*WHERE (student_name CONTAINS keyword)";
-            }
-            else if (user_type == "faculty")
-            {
-                query = "IN faculty SELECT*WHERE (faculty_name CONTAINS keyword)";
-            }
-
-            break;
-        }
-        else if (choice == "3")//phone
-        {
-            keyword = io.NextToken();
-
-            //student no phone
-            /*if (user_type == "student")
-            {
-                query = "IN student SELECT*WHERE ( CONTAINS keyword)";
-            }*/
-            if (user_type == "faculty")
-            {
-                query = "IN faculty SELECT * WHERE (faculty_phonenumber CONTAINS keyword)";
-            }
-
-            break;
-        }
-        else if (choice == "4")//Address
-        {
-            keyword = io.NextToken();
-
-            if (user_type == "student")
-            {
-                query = "IN student SELECT*WHERE (student_placeofbirth CONTAINS keyword)";
-            }
-            else if (user_type == "faculty")
-            {
-                query = "IN faculty SELECT*WHERE (faculty_placeofbirth CONTAINS keyword)";
-            }
-            break;
-        }
-        else
-        {
-            std::cout << "Try: ";
-        }
-
-    }
-    while(1);
-
-    std::vector< std::vector<std::string> > query_result = SelectQuery(query);
-
-    //display , take id , remove in 2 query user and  falcuty or student
 }
 
 
@@ -313,11 +540,21 @@ void AdminSession::DeleteUserActivity() {
  *  Code of Trai
 **/
 void AdminSession::ChangePasswordActivity() {
-    IO io();
 
     // Let user enter new password
-    std::cout << "New password: ";
-    std::string new_password = io.NextToken();
+    screen::PrintLine("New password: ");
+    std::string new_password = io::NextToken();
+
+    screen::PrintLine("Confirm new password: ");
+    std::string confirmation = io::NextToken();
+
+    if (new_password != confirmation) {
+        screen::Pad();
+        std::cout << "Incorrect password confirmation. Please try again later.\n";
+        screen::Pend();
+        screen::Clear();
+        return;
+    }
 
     std::string query = "";
     query += "IN user SET (password = ";
@@ -325,11 +562,11 @@ void AdminSession::ChangePasswordActivity() {
     query += ") WHERE (user_id == ";
     query += admin_id;
     query += ")";
-    SetQuery(query);
+    db::SetQuery(query);
 
-    std::cout << "Password changed.\n";
-    std::cout << "Press any key to continue...";
-    getchar();
+    screen::PrintLine("Password changed successfully");
+    screen::Pend();
+    screen::Clear();
     return;
 }
 
@@ -339,6 +576,7 @@ void AdminSession::ChangePasswordActivity() {
 
 AdminSession::AdminSession(std::string _admin_id) {
     admin_id = _admin_id;
+    is_logged_in = true;
 }
 
 
@@ -349,7 +587,7 @@ AdminSession::AdminSession(std::string _admin_id) {
  *  Run an administrator session
 **/
 void AdminSession::Run() {
-
+    HomeScreen();
 }
 
 
