@@ -17,6 +17,7 @@ class IO {
         int NextInt();
         double NextDouble();
         std::string ToUpperCase(std::string);
+        std::string StripWhitespaces(std::string s);
         ~IO();
 };
 

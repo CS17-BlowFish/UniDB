@@ -48,8 +48,8 @@ std::vector<std::string> CsvFile::SplitCellValuesKeepQuotes(std::string row_str)
     std::vector<std::pair<int, int> > word_positions;
 
     int i = 0;
-    int begin_position = 0;
-    int end_position = 0;
+    int start_pos = 0;
+    int end_pos = 0;
 
     while (i < (int) row_str.length()) {
         // Any commas within quotation marks are ignored
@@ -58,16 +58,16 @@ std::vector<std::string> CsvFile::SplitCellValuesKeepQuotes(std::string row_str)
             while (row_str[i + 1] != '\"') {
                 i++;
             }
-            end_position = i + 2;
-            word_positions.emplace_back(begin_position, end_position);
+            end_pos = i + 2;
+            word_positions.emplace_back(start_pos, end_pos);
             i += 3; // ignore second quote mark and comma
-            begin_position = i;
+            start_pos = i;
         }
         else if (row_str[i] == ',') {
-            end_position = i;
-            word_positions.emplace_back(begin_position, end_position);
+            end_pos = i;
+            word_positions.emplace_back(start_pos, end_pos);
             i++;
-            begin_position = i;
+            start_pos = i;
         }
         else {
             i++;
@@ -75,7 +75,7 @@ std::vector<std::string> CsvFile::SplitCellValuesKeepQuotes(std::string row_str)
     }
 
     if (row_str[row_str.length() - 1] != '\"') {
-        word_positions.emplace_back(begin_position, row_str.length());
+        word_positions.emplace_back(start_pos, row_str.length());
     }
 
     std::vector<std::string> cells;
@@ -94,27 +94,27 @@ std::vector<std::string> CsvFile::SplitCellValues(std::string row_str) {
     std::vector<std::pair<int, int> > word_positions;
 
     int i = 0;
-    int begin_position = 0;
-    int end_position = 0;
+    int start_pos = 0;
+    int end_pos = 0;
 
     while (i < (int) row_str.length()) {
         // Any commas within quotation marks are ignored
         if (row_str[i] == '\"') {
-            begin_position++;
+            start_pos++;
             // Look for the second quote mark
             while (row_str[i + 1] != '\"') {
                 i++;
             }
-            end_position = i + 1;
-            word_positions.emplace_back(begin_position, end_position);
+            end_pos = i + 1;
+            word_positions.emplace_back(start_pos, end_pos);
             i += 3; // ignore second quote mark and comma
-            begin_position = i;
+            start_pos = i;
         }
         else if (row_str[i] == ',') {
-            end_position = i;
-            word_positions.emplace_back(begin_position, end_position);
+            end_pos = i;
+            word_positions.emplace_back(start_pos, end_pos);
             i++;
-            begin_position = i;
+            start_pos = i;
         }
         else {
             i++;
@@ -122,7 +122,7 @@ std::vector<std::string> CsvFile::SplitCellValues(std::string row_str) {
     }
 
     if (row_str[row_str.length() - 1] != '\"') {
-        word_positions.emplace_back(begin_position, row_str.length());
+        word_positions.emplace_back(start_pos, row_str.length());
     }
 
     std::vector<std::string> cells;
@@ -180,6 +180,11 @@ CsvFile::CsvFile(std::string _filename) {
     filename = _filename;
     GetColumnNames();
     CheckQuotes();
+}
+
+
+std::vector<std::string> CsvFile::ColumnNames() {
+    return column_names;
 }
 
 
@@ -425,6 +430,7 @@ void CsvFile::ChangeRowGivenCells(std::vector<Cell> given_cells, Cell final_cell
 
             if (cell_to_compare.value != given_cell.value) {
                 to_change[i] = false;
+                break;
             }
         }
     }

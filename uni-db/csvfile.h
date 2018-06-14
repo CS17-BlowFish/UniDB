@@ -25,6 +25,7 @@ class CsvFile {
 
     public:
         CsvFile(std::string _filename);
+        std::vector<std::string> ColumnNames();
         std::string ReadRowString(std::ifstream &infile);
         std::vector<std::string> ReadRowStrings();
         std::vector<Cell> SplitCells(std::string row_string);

@@ -111,6 +111,17 @@ std::string IO::ToUpperCase(std::string s) {
 }
 
 
+std::string IO::StripWhitespaces(std::string s) {
+    std::string result = "";
+    for (int i = 0; i < (int) s.length(); i++) {
+        if (s[i] != ' ') {
+            result += s[i];
+        }
+    }
+    return result;
+}
+
+
 /**
  *  Destructor
 **/
